@@ -1,0 +1,9 @@
+C:\College\Year 4\Computer Science\Scrabble Data Benching\Scrabble Data Benching\bin\Debug\Scrabble Data Benching.exe.config
+C:\College\Year 4\Computer Science\Scrabble Data Benching\Scrabble Data Benching\obj\Debug\Scrabble Data Benching.csprojResolveAssemblyReference.cache
+C:\College\Year 4\Computer Science\Scrabble Data Benching\Scrabble Data Benching\obj\Debug\Scrabble_Data_Benching.Form1.resources
+C:\College\Year 4\Computer Science\Scrabble Data Benching\Scrabble Data Benching\obj\Debug\Scrabble_Data_Benching.Properties.Resources.resources
+C:\College\Year 4\Computer Science\Scrabble Data Benching\Scrabble Data Benching\obj\Debug\Scrabble Data Benching.csproj.GenerateResource.Cache
+C:\College\Year 4\Computer Science\Scrabble Data Benching\Scrabble Data Benching\bin\Debug\Scrabble Data Benching.exe
+C:\College\Year 4\Computer Science\Scrabble Data Benching\Scrabble Data Benching\bin\Debug\Scrabble Data Benching.pdb
+C:\College\Year 4\Computer Science\Scrabble Data Benching\Scrabble Data Benching\obj\Debug\Scrabble Data Benching.exe
+C:\College\Year 4\Computer Science\Scrabble Data Benching\Scrabble Data Benching\obj\Debug\Scrabble Data Benching.pdb
