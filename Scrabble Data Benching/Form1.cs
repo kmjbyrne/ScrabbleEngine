@@ -7,12 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.Sql;
 using System.Data.SqlClient;
+using System.Data.Common;
 using System.Data.SqlTypes;
 using System.Data.SqlServerCe;
 using System.IO;
-
 
 namespace Scrabble_Data_Benching
 {
@@ -20,6 +19,7 @@ namespace Scrabble_Data_Benching
     {
         private int word_count;
         private String database_path = "C:\\Scrabble\\Database.sdf";
+        private String database_path_MDF = "C:\\Scrabble\\Database.mdf";
         private String boot_files = "C:\\Scrabble\\Boot Files";
 
         public Form1()
@@ -61,6 +61,32 @@ namespace Scrabble_Data_Benching
                 sqlcomm.ExecuteNonQuery();
             }
             catch(Exception)
+            {
+
+            }
+        }
+        private void clickCreateDatabaseMDF(object sender, EventArgs e)
+        {
+            if (File.Exists(database_path_MDF))
+            {
+                MessageBox.Show("Database already exists", "Info", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+
+            String connectionString = string.Format(
+              "DataSource=\"{0}\"; Password='{1}'", database_path_MDF, "12345");
+             = new SqlCeEngine(connectionString);
+            en.CreateDatabase();
+
+            SqlCeConnection conn = new SqlCeConnection(connectionString);
+
+            SqlCeCommand sqlcomm = new SqlCeCommand("CREATE TABLE WORD_MASTER (WORD_ID int, WORD NVARCHAR(200))", conn);
+
+            try
+            {
+                conn.Open();
+                sqlcomm.ExecuteNonQuery();
+            }
+            catch (Exception)
             {
 
             }

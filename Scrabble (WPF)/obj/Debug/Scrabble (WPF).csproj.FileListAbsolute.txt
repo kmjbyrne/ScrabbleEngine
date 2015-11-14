@@ -1,0 +1,13 @@
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\bin\Debug\Scrabble (WPF).exe.config
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\bin\Debug\Scrabble (WPF).exe
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\bin\Debug\Scrabble (WPF).pdb
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).csprojResolveAssemblyReference.cache
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\MainWindow.baml
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\MainWindow.g.cs
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\App.g.cs
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF)_MarkupCompile.cache
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).g.resources
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble__WPF_.Properties.Resources.resources
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).csproj.GenerateResource.Cache
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).exe
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).pdb
