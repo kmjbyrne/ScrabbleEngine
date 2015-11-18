@@ -17,7 +17,7 @@ namespace Scrabble_Data_Benching
 {
     public partial class Form1 : Form
     {
-        private int word_count;
+        private int word_count ;
         private String database_path = "C:\\Scrabble\\Database.sdf";
         private String database_path_MDF = "C:\\Scrabble\\Database.mdf";
         private String boot_files = "C:\\Scrabble\\Boot Files";
