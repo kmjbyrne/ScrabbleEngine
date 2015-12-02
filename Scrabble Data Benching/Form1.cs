@@ -18,14 +18,47 @@ namespace Scrabble_Data_Benching
     public partial class Form1 : Form
     {
         private int word_count ;
-        private String database_path = "C:\\Scrabble\\Database.sdf";
+        private String database_path = @"Data Source=C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\bin\Debug\Data\ScrabbleDatabase.sdf;Password=root";
         private String database_path_MDF = "C:\\Scrabble\\Database.mdf";
         private String boot_files = "C:\\Scrabble\\Boot Files";
+        private Dictionary<char, int> letters;
 
         public Form1()
         {
             InitializeComponent();
             CheckDefaultDirectory();
+            generateCharacterDict();
+        }
+
+        private void generateCharacterDict()
+        {
+            letters = new Dictionary<char, int>();
+            letters.Add('A', 1);
+            letters.Add('B', 3);
+            letters.Add('C', 3);
+            letters.Add('D', 2);
+            letters.Add('E', 1);
+            letters.Add('F', 4);
+            letters.Add('G', 2);
+            letters.Add('H', 4);
+            letters.Add('I', 1);
+            letters.Add('J', 8);
+            letters.Add('K', 5);
+            letters.Add('L', 1);
+            letters.Add('M', 3);
+            letters.Add('N', 1);
+            letters.Add('O', 1);
+            letters.Add('P', 3);
+            letters.Add('Q', 10);
+            letters.Add('R', 1);
+            letters.Add('S', 1);
+            letters.Add('T', 1);
+            letters.Add('U', 1);
+            letters.Add('V', 4);
+            letters.Add('W', 4);
+            letters.Add('X', 8);
+            letters.Add('Y', 4);
+            letters.Add('Z', 10);
         }
 
         private void CheckDefaultDirectory()
@@ -74,7 +107,7 @@ namespace Scrabble_Data_Benching
 
             String connectionString = string.Format(
               "DataSource=\"{0}\"; Password='{1}'", database_path_MDF, "12345");
-             = new SqlCeEngine(connectionString);
+            SqlCeEngine en = new SqlCeEngine(connectionString);
             en.CreateDatabase();
 
             SqlCeConnection conn = new SqlCeConnection(connectionString);
@@ -100,10 +133,7 @@ namespace Scrabble_Data_Benching
         {
             String[] file_array = Directory.GetFiles("C:\\Scrabble\\Boot Files\\");
 
-            String connectionString = string.Format(
-              "DataSource=\"{0}\"; Password='{1}'", database_path, "12345");
-
-            SqlCeConnection conn = new SqlCeConnection(connectionString);
+            SqlCeConnection conn = new SqlCeConnection(database_path);
 
             try
             {
@@ -119,26 +149,20 @@ namespace Scrabble_Data_Benching
                 //For each file in the files array
                 //Iterate through the delimited files
                 //Add each word to the database
-                var reader = new StreamReader(File.OpenRead(s));
+                String[] lines = File.ReadAllLines(s);
 
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    String lines = reader.ReadToEnd();
-
-                    if(line != null)
+                //while (!reader.EndOfStream)
+                //{
+                    foreach (String p in lines)
                     {
-                        string sqlquery = "INSERT INTO WORD_MASTER (WORD_ID, WORD)" + " VALUES(@id,@word)";
+                        string sqlquery = "INSERT INTO WORDS (WORD)" + " VALUES(@word)";
                         SqlCeCommand cmd = new SqlCeCommand(sqlquery, conn);
 
-                        cmd.Parameters.AddWithValue("@id", word_count);
-                        cmd.Parameters.AddWithValue("@word", line);
-
+                        cmd.Parameters.AddWithValue("@word", p);
                         cmd.ExecuteNonQuery();
-
                         word_count++;
+                        cmd.Dispose();
                     }
-                }
             }
         }
 
@@ -149,15 +173,17 @@ namespace Scrabble_Data_Benching
 
         private void button3_Click(object sender, EventArgs e)
         {
+            
             listBox1.Items.Clear();
 
             String word = textBox1.Text.ToString();
 
-            String connectionString = string.Format(
-              "DataSource=\"{0}\"; Password='{1}'", database_path, "12345");
+            String connectionString = database_path;
             SqlCeConnection conn = new SqlCeConnection(connectionString);
 
-            String query = "SELECT * FROM WORD_MASTER WHERE WORD = '" + word + "'";
+            long now = DateTime.Now.Millisecond;
+
+            String query = "SELECT * FROM WORDS WHERE WORD = '" + word + "'";
 
             SqlCeCommand comm = new SqlCeCommand(query, conn);
 
@@ -170,7 +196,7 @@ namespace Scrabble_Data_Benching
                 MessageBox.Show("Not a word", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
-            query = "SELECT * FROM WORD_MASTER WHERE WORD LIKE '" + word + "%'";
+            query = "SELECT * FROM WORDS WHERE WORD LIKE '" + word + "%'";
 
             comm = new SqlCeCommand(query, conn);
 
@@ -181,8 +207,19 @@ namespace Scrabble_Data_Benching
 
             foreach(DataRow r in dt.Rows)
             {
-                listBox1.Items.Add(r["WORD"].ToString());
+                int total = 0;
+                foreach(char c in r["WORD"].ToString().ToUpper())
+                {
+                    if(letters.ContainsKey(c))
+                    {
+                        total += letters[c];
+                    }
+                }
+                listBox1.Items.Add("" + r["WORD"].ToString() + " : " + total);
             }
+
+            long then = DateTime.Now.Millisecond;
+            this.Text = "Time Taken: " + (now - then).ToString() + " milliseconds";
         }
     }
 }

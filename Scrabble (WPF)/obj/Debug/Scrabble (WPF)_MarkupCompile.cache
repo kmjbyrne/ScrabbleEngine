@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\
+C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\
 Scrabble__WPF_
 none
 false
 DEBUG;TRACE
-G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\App.xaml
-11151548125
+C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\App.xaml
+3-1161539794
 
-5-2017746502
+8373759422
 131051617327
-MainWindow.xaml;
+Login.xaml;MainWindow.xaml;SignUp.xaml;
 
 False
 

@@ -1,48 +1,125 @@
-﻿<Window x:Class="Scrabble__WPF_.MainWindow"
+﻿<Window x:Class="Scrabble_WPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Scrabble Login" Height="350" Width="530.352" ResizeMode="NoResize">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-            <GradientStop Color="Black" Offset="1"/>
-            <GradientStop Color="#FF096437"/>
-            <GradientStop Color="#FF075830" Offset="0.496"/>
-        </LinearGradientBrush>
-    </Window.Background>
-    <Grid Margin="0,0,2,-1">
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Black" Offset="0"/>
-                <GradientStop Color="Black" Offset="1"/>
-                <GradientStop Color="#FF054022" Offset="0.516"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-        <Label x:Name="HeaderLogin" Content="Scrabble Login" HorizontalContentAlignment="Center" Margin="10,46,10,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White" FontSize="20" FontFamily="Verdana"/>
-        <Label x:Name="LoginTrigger" Content="login" HorizontalContentAlignment="Center" Margin="10,201,10,0" VerticalAlignment="Top" Height="62" Foreground="#FFE6CD79" FontSize="72" FontFamily="./Resources/#ScrambleMixed" MouseDown="ClickLoginTrigger"/>
-        <Label x:Name="SignupTrigger" Content="sign up" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="10,263,0,0" VerticalAlignment="Top" Width="500" Height="40" Foreground="#FFFFFDFD" FontSize="36" FontFamily="./Resources/#ScrambleMixed"/>
-        <Grid Height="101" Margin="10,95,10,0" VerticalAlignment="Top">
-            <PasswordBox x:Name="PasswordInputField" HorizontalAlignment="Left" Margin="150,58,0,0" VerticalAlignment="Top" Width="200" SelectionOpacity="0" Foreground="#FFFBF6F6" Height="33" Background="{x:Null}" FontFamily="Verdana" FontSize="20" ToolTip="Enter your Password here">
-                <PasswordBox.BorderBrush>
-                    <LinearGradientBrush EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
-                        <GradientStop Color="#FFABADB3" Offset="0.011"/>
-                        <GradientStop Color="#FF2C8D34" Offset="0.536"/>
-                        <GradientStop Color="#FFE3E9EF" Offset="1"/>
-                    </LinearGradientBrush>
-                </PasswordBox.BorderBrush>
-            </PasswordBox>
-            <TextBox x:Name="UsernameInputField" HorizontalAlignment="Left" Height="33" Margin="150,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Background="{x:Null}" FontFamily="Verdana" FontSize="20" Foreground="White" ToolTip="Insert Username here">
-                <TextBox.BorderBrush>
-                    <LinearGradientBrush EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
-                        <GradientStop Color="#FFABADB3" Offset="0.026"/>
-                        <GradientStop Color="#FF19802C" Offset="0.513"/>
-                        <GradientStop Color="#FFE3E9EF" Offset="1"/>
-                        <GradientStop Color="#FF1A9C37" Offset="0.588"/>
-                    </LinearGradientBrush>
-                </TextBox.BorderBrush>
-            </TextBox>
-        </Grid>
-        <Label x:Name="AboutTrigger" Content="About" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Top" Foreground="#FF808958" Height="40" Width="90" BorderThickness="1" Margin="420,0,0,0" FontSize="16" RenderTransformOrigin="0.5,0.75" MouseEnter="MouseAboutEnter" MouseLeave="MouseLeavel"/>
-        <Label x:Name="ExitTrigger" Content="Exit" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Foreground="#FF808958" Width="90" BorderThickness="1" Margin="0,1,0,282" FontSize="16" Height="40"/>
+        Title="MainWindow" Height="800" Width="1381">
+    <Canvas Margin="0,0,2,0">
+        <Grid  Margin="10,10,10,10" Height="750" Width="750" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <Grid.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <!-- All rows -->
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="1" />
 
-    </Grid>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+
+
+            </Grid.ColumnDefinitions>
+
+
+            <TextBlock Text="3W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="0" />
+            <TextBlock Text="2L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="3"/>
+            <TextBlock Text="3W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="7"/>
+            <TextBlock Text="2L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="11"/>
+            <TextBlock Text="3W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="14"/>
+            <TextBlock Text="2W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Text="3L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="1" Grid.Column="5"/>
+            <TextBlock Text="3L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="1" Grid.Column="9"/>
+            <TextBlock Text="2W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="1" Grid.Column="13"/>
+            <TextBlock Text="2W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="2" Grid.Column="2"/>
+            <TextBlock Text="2L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="2" Grid.Column="6"/>
+            <TextBlock Text="2L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="2" Grid.Column="8"/>
+            <!-- Horizontal border Lines -->
+            <Border Grid.ColumnSpan="15"/>
+            <Border Grid.Row="0" Grid.ColumnSpan="15" />
+            <Border Grid.Row="1" Grid.ColumnSpan="15" />
+            <Border Grid.Row="2" Grid.ColumnSpan="15" />
+            <Border Grid.Row="3" Grid.ColumnSpan="15" />
+            <Border Grid.Row="4" Grid.ColumnSpan="15" />
+            <Border Grid.Row="5" Grid.ColumnSpan="15" />
+            <Border Grid.Row="6" Grid.ColumnSpan="15" />
+            <Border Grid.Row="7" Grid.ColumnSpan="15" />
+            <Border Grid.Row="8" Grid.ColumnSpan="15" />
+            <Border Grid.Row="9" Grid.ColumnSpan="15" />
+            <Border Grid.Row="10" Grid.ColumnSpan="15" />
+            <Border Grid.Row="11" Grid.ColumnSpan="15" />
+            <Border Grid.Row="12" Grid.ColumnSpan="15" />
+            <Border Grid.Row="13" Grid.ColumnSpan="15" />
+            <Border Grid.Row="14" Grid.ColumnSpan="15" />
+            <Border Grid.Row="15" Grid.ColumnSpan="15" />
+            <!-- Vertical border Lines -->
+            <Border Grid.Column="0" Grid.RowSpan="15" />
+            <Border Grid.Column="1" Grid.RowSpan="15" />
+            <Border Grid.Column="2" Grid.RowSpan="15" />
+            <Border Grid.Column="3" Grid.RowSpan="15" />
+            <Border Grid.Column="4" Grid.RowSpan="15" />
+            <Border Grid.Column="5" Grid.RowSpan="15" />
+            <Border Grid.Column="6" Grid.RowSpan="15" />
+            <Border Grid.Column="7" Grid.RowSpan="15" />
+            <Border Grid.Column="8" Grid.RowSpan="15" />
+            <Border Grid.Column="9" Grid.RowSpan="15" />
+            <Border Grid.Column="10" Grid.RowSpan="15" />
+            <Border Grid.Column="11" Grid.RowSpan="15" />
+            <Border Grid.Column="12" Grid.RowSpan="15" />
+            <Border Grid.Column="13" Grid.RowSpan="15" />
+            <Border Grid.Column="14" Grid.RowSpan="15" />
+            <Border Grid.Column="15" Grid.RowSpan="15" />
+        </Grid>
+        <Button Content="A" Canvas.Left="510" Canvas.Top="410" Width="50" Height="49" BorderThickness="1" BorderBrush="#FF060606" RenderTransformOrigin="0.521,0.551"/>
+        <Button Content="T" Canvas.Left="560" Canvas.Top="410" Width="49" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
+        <Button Canvas.Left="460" Canvas.Top="410" Width="50" Height="49" BorderThickness="1" BorderBrush="#FF060606" Content="B"/>
+        <Button Content="A" Canvas.Left="814" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
+        <Border BorderBrush="Black" BorderThickness="1" Height="78" Canvas.Left="799" Canvas.Top="628" Width="397"/>
+        <Button Content="A" Canvas.Left="814" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
+        <Button Canvas.Left="867" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606" Content="B"/>
+        <Button Content="A" Canvas.Left="973" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
+        <Button Content="T" Canvas.Left="1026" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606" RenderTransformOrigin="0.542,0.51"/>
+        <Button Canvas.Left="1079" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606" Content="Z"/>
+        <Button Canvas.Left="1132" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606" Content="S"/>
+        <Button Content="T" Canvas.Left="920" Canvas.Top="643" Width="49" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
+        <Label Content="Computer" Canvas.Left="974" Canvas.Top="597" Width="106"/>
+        <Label Content="Player" Canvas.Left="974" Canvas.Top="28" Width="100"/>
+        <Label Content="Score" Canvas.Left="931" Canvas.Top="150"/>
+        <Label Content="0" Canvas.Left="983" Canvas.Top="150"/>
+        <Label Content="0" Canvas.Left="983" Canvas.Top="711"/>
+        <Label Content="Score" Canvas.Left="931" Canvas.Top="711"/>
+        <Button Content="Submit Word" Canvas.Left="943" Canvas.Top="181" Width="116" RenderTransformOrigin="0.12,-0.7" Height="49"/>
+        <StackPanel x:Name="PlayerTray" Height="85" Canvas.Left="799" Canvas.Top="65" Width="562" Orientation="Horizontal" MouseDown="returnCharactersToTray"/>
+        <Button Content="Button" Canvas.Left="1135" Canvas.Top="184" Width="75" Click="clickResetTray"/>
+    </Canvas>
 </Window>

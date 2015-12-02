@@ -14,3 +14,12 @@ G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble Data Benchin
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble Data Benching\obj\Debug\Scrabble_Data_Benching.Form1.resources
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble Data Benching\obj\Debug\Scrabble_Data_Benching.Properties.Resources.resources
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble Data Benching\obj\Debug\Scrabble Data Benching.csproj.GenerateResource.Cache
+C:\Scrabble\ScrabbleEngine\Scrabble Data Benching\bin\Debug\Scrabble Data Benching.exe.config
+C:\Scrabble\ScrabbleEngine\Scrabble Data Benching\obj\Debug\Scrabble Data Benching.exe
+C:\Scrabble\ScrabbleEngine\Scrabble Data Benching\obj\Debug\Scrabble Data Benching.csprojResolveAssemblyReference.cache
+C:\Scrabble\ScrabbleEngine\Scrabble Data Benching\obj\Debug\Scrabble_Data_Benching.Form1.resources
+C:\Scrabble\ScrabbleEngine\Scrabble Data Benching\obj\Debug\Scrabble_Data_Benching.Properties.Resources.resources
+C:\Scrabble\ScrabbleEngine\Scrabble Data Benching\obj\Debug\Scrabble Data Benching.csproj.GenerateResource.Cache
+C:\Scrabble\ScrabbleEngine\Scrabble Data Benching\bin\Debug\Scrabble Data Benching.exe
+C:\Scrabble\ScrabbleEngine\Scrabble Data Benching\bin\Debug\Scrabble Data Benching.pdb
+C:\Scrabble\ScrabbleEngine\Scrabble Data Benching\obj\Debug\Scrabble Data Benching.pdb

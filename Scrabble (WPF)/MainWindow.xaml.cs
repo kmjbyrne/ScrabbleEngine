@@ -12,71 +12,138 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data.SqlServerCe;
-using System.Data;
 
-namespace Scrabble__WPF_
+namespace Scrabble_WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        Queue<Button> selectionQueue;
+        Dictionary<char, int> letters;
         public MainWindow()
         {
             InitializeComponent();
+            generateCharacterDict();
+            initStartUp();
+ 
+        }
+        private void initStartUp()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                System.Windows.Controls.Button newBtn = new Button();
+                newBtn.Height = 60;
+                newBtn.Width = 60;
+                newBtn.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+
+                int x = new Random().Next(2);
+
+                switch (x)
+                {
+                    case 0:
+                        newBtn.Content = "A" + " (" + letters['A'] + ")";
+                        break;
+                    case 1:
+                        newBtn.Content = "B"+ " (" + letters['B'] + ")";
+                        break;
+                    case 2:
+                        newBtn.Content = "C" + " (" + letters['C'] + ")";
+                        break;
+                }
+
+                newBtn.Name = "Button" + i.ToString();
+                newBtn.Click += tileClickListener;
+                PlayerTray.Children.Add(newBtn);
+            }
         }
 
-        private void ClickLoginTrigger(object sender, MouseButtonEventArgs e)
+        private void generateCharacterDict()
         {
-            String username = UsernameInputField.Text;
-            String password = PasswordInputField.Password;
-            //Proceed to login
-            String connectionString = string.Format("DataSource=\"{0}\"; Password='{1}'", @"Data\ScrabbleDatabase.sdf", "root");
+            letters = new Dictionary<char, int>();
+            letters.Add('A', 1);
+            letters.Add('B', 3);
+            letters.Add('C', 3);
+            letters.Add('D', 2);
+            letters.Add('E', 1);
+            letters.Add('F', 4);
+            letters.Add('G', 2);
+            letters.Add('H', 4);
+            letters.Add('I', 1);
+            letters.Add('J', 8);
+            letters.Add('K', 5);
+            letters.Add('L', 1);
+            letters.Add('M', 3);
+            letters.Add('N', 1);
+            letters.Add('O', 1);
+            letters.Add('P', 3);
+            letters.Add('Q', 10);
+            letters.Add('R', 1);
+            letters.Add('S', 1);
+            letters.Add('T', 1);
+            letters.Add('U', 1);
+            letters.Add('V', 4);
+            letters.Add('W', 4);
+            letters.Add('X', 8);
+            letters.Add('Y', 4);
+            letters.Add('Z', 10);
+        }
 
-            SqlCeConnection conn = new SqlCeConnection(connectionString);
-            String query = "SELECT * FROM USERS WHERE username = @username";
-            DataTable dt = new DataTable();
+        private void tileClickListener(object sender, EventArgs e)
+        {
+            if (selectionQueue == null) 
+                selectionQueue = new Queue<Button>();
 
+            selectionQueue.Enqueue((Button)sender);
+            PlayerTray.Children.Remove((Button)sender);
+        }
+
+        private void TextBlock_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void returnCharactersToTray(object sender, MouseButtonEventArgs e)
+        {
             try
             {
-                conn.Open();
-                SqlCeCommand comm = new SqlCeCommand(query, conn);
-                comm.Parameters.AddWithValue("@username", username);
-                comm.ExecuteNonQuery();
-
-                SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
-                da.Fill(dt);
-            }
-            catch(Exception)
-            {
-            }
-
-            if (dt.Rows.Count == 0)
-            {
-                HeaderLogin.Content = "Invalid Username or Password";
-            }
-            else
-            {
-                foreach (DataRow r in dt.Rows)
+                if (e.ChangedButton == MouseButton.Right)
                 {
-                    if(r[2].ToString().Equals(password))
-                    {
-                        //Match
-                        break;
-                    }
+                    PlayerTray.Children.Add(selectionQueue.Dequeue());
                 }
             }
+            catch (Exception)
+            {
+
+            }
+
         }
 
-        private void MouseLeavel(object sender, MouseEventArgs e)
+        private void clickResetTray(object sender, RoutedEventArgs e)
         {
-            AboutTrigger.Foreground = System.Windows.Media.Brushes.White;
+            int count = selectionQueue.Count;
+            for (int i = 0; i < count; i++)
+                PlayerTray.Children.Add(selectionQueue.Dequeue());
         }
+    }
 
-        private void MouseAboutEnter(object sender, MouseEventArgs e)
+    class Tile
+    {
+        public int id { get; set; }
+        public char letter { get; set; }
+        public int score { get; set; }
+
+        public Tile(int id, char letter, int score)
         {
-            AboutTrigger.Foreground = System.Windows.Media.Brushes.Yellow;
+            this.id = id;
+            this.letter = letter;
+            this.score = score;
         }
     }
 }
