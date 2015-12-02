@@ -1,0 +1,13 @@
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\bin\Debug\Scrabble.exe.config
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\bin\Debug\Scrabble.exe
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\bin\Debug\Scrabble.pdb
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\MainWindow.baml
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\MainWindow.g.cs
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\App.g.cs
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\Scrabble_MarkupCompile.cache
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\Scrabble.g.resources
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\Scrabble.Properties.Resources.resources
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\Scrabble.csproj.GenerateResource.Cache
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\Scrabble.exe
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\Scrabble.pdb
+C:\Users\liam\Documents\Visual Studio 2013\Projects\Scrabble\Scrabble\obj\Debug\Scrabble.csprojResolveAssemblyReference.cache
