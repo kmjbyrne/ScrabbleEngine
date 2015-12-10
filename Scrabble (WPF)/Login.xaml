@@ -1,4 +1,4 @@
-﻿<Window x:Class="Scrabble_WPF.Login"
+﻿<Window x:Class="Scrabble.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Scrabble Login" Height="350" Width="530.352" ResizeMode="NoResize">

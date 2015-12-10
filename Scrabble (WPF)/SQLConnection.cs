@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlServerCe;
 using System.Data;
 
-namespace Scrabble_WPF
+namespace Scrabble
 {
     class SQLConnection
     {
@@ -84,6 +84,21 @@ namespace Scrabble_WPF
         public DataTable runQuery(SqlCeCommand comm)
         {
             DataTable dt = new DataTable();
+            comm.ExecuteNonQuery();
+            SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+            da.Fill(dt);
+            return dt;
+        }
+
+
+
+        public DataTable getLetterData()
+        {
+            DataTable dt = new DataTable();
+
+            String query = "SELECT * FROM LETTER";
+
+            SqlCeCommand comm = new SqlCeCommand(query, conn);
             comm.ExecuteNonQuery();
             SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
             da.Fill(dt);

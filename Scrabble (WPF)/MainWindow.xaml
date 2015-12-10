@@ -1,125 +1,26 @@
-﻿<Window x:Class="Scrabble_WPF.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="800" Width="1381">
-    <Canvas Margin="0,0,2,0">
-        <Grid  Margin="10,10,10,10" Height="750" Width="750" HorizontalAlignment="Left" VerticalAlignment="Top" >
-            <Grid.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <!-- All rows -->
-                    <Setter Property="BorderBrush" Value="Black" />
-                    <Setter Property="BorderThickness" Value="1" />
-
-                </Style>
-            </Grid.Resources>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="50*"/>
-
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-
-
-            </Grid.ColumnDefinitions>
-
-
-            <TextBlock Text="3W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="0" />
-            <TextBlock Text="2L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="3"/>
-            <TextBlock Text="3W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="7"/>
-            <TextBlock Text="2L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="11"/>
-            <TextBlock Text="3W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="0" Grid.Column="14"/>
-            <TextBlock Text="2W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="1" Grid.Column="1"/>
-            <TextBlock Text="3L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="1" Grid.Column="5"/>
-            <TextBlock Text="3L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="1" Grid.Column="9"/>
-            <TextBlock Text="2W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="1" Grid.Column="13"/>
-            <TextBlock Text="2W" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="2" Grid.Column="2"/>
-            <TextBlock Text="2L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="2" Grid.Column="6"/>
-            <TextBlock Text="2L" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" Grid.Row="2" Grid.Column="8"/>
-            <!-- Horizontal border Lines -->
-            <Border Grid.ColumnSpan="15"/>
-            <Border Grid.Row="0" Grid.ColumnSpan="15" />
-            <Border Grid.Row="1" Grid.ColumnSpan="15" />
-            <Border Grid.Row="2" Grid.ColumnSpan="15" />
-            <Border Grid.Row="3" Grid.ColumnSpan="15" />
-            <Border Grid.Row="4" Grid.ColumnSpan="15" />
-            <Border Grid.Row="5" Grid.ColumnSpan="15" />
-            <Border Grid.Row="6" Grid.ColumnSpan="15" />
-            <Border Grid.Row="7" Grid.ColumnSpan="15" />
-            <Border Grid.Row="8" Grid.ColumnSpan="15" />
-            <Border Grid.Row="9" Grid.ColumnSpan="15" />
-            <Border Grid.Row="10" Grid.ColumnSpan="15" />
-            <Border Grid.Row="11" Grid.ColumnSpan="15" />
-            <Border Grid.Row="12" Grid.ColumnSpan="15" />
-            <Border Grid.Row="13" Grid.ColumnSpan="15" />
-            <Border Grid.Row="14" Grid.ColumnSpan="15" />
-            <Border Grid.Row="15" Grid.ColumnSpan="15" />
-            <!-- Vertical border Lines -->
-            <Border Grid.Column="0" Grid.RowSpan="15" />
-            <Border Grid.Column="1" Grid.RowSpan="15" />
-            <Border Grid.Column="2" Grid.RowSpan="15" />
-            <Border Grid.Column="3" Grid.RowSpan="15" />
-            <Border Grid.Column="4" Grid.RowSpan="15" />
-            <Border Grid.Column="5" Grid.RowSpan="15" />
-            <Border Grid.Column="6" Grid.RowSpan="15" />
-            <Border Grid.Column="7" Grid.RowSpan="15" />
-            <Border Grid.Column="8" Grid.RowSpan="15" />
-            <Border Grid.Column="9" Grid.RowSpan="15" />
-            <Border Grid.Column="10" Grid.RowSpan="15" />
-            <Border Grid.Column="11" Grid.RowSpan="15" />
-            <Border Grid.Column="12" Grid.RowSpan="15" />
-            <Border Grid.Column="13" Grid.RowSpan="15" />
-            <Border Grid.Column="14" Grid.RowSpan="15" />
-            <Border Grid.Column="15" Grid.RowSpan="15" />
-        </Grid>
-        <Button Content="A" Canvas.Left="510" Canvas.Top="410" Width="50" Height="49" BorderThickness="1" BorderBrush="#FF060606" RenderTransformOrigin="0.521,0.551"/>
-        <Button Content="T" Canvas.Left="560" Canvas.Top="410" Width="49" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
-        <Button Canvas.Left="460" Canvas.Top="410" Width="50" Height="49" BorderThickness="1" BorderBrush="#FF060606" Content="B"/>
-        <Button Content="A" Canvas.Left="814" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
-        <Border BorderBrush="Black" BorderThickness="1" Height="78" Canvas.Left="799" Canvas.Top="628" Width="397"/>
-        <Button Content="A" Canvas.Left="814" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
-        <Button Canvas.Left="867" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606" Content="B"/>
-        <Button Content="A" Canvas.Left="973" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
-        <Button Content="T" Canvas.Left="1026" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606" RenderTransformOrigin="0.542,0.51"/>
-        <Button Canvas.Left="1079" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606" Content="Z"/>
-        <Button Canvas.Left="1132" Canvas.Top="643" Width="48" Height="49" BorderThickness="1" BorderBrush="#FF060606" Content="S"/>
-        <Button Content="T" Canvas.Left="920" Canvas.Top="643" Width="49" Height="49" BorderThickness="1" BorderBrush="#FF060606"/>
-        <Label Content="Computer" Canvas.Left="974" Canvas.Top="597" Width="106"/>
-        <Label Content="Player" Canvas.Left="974" Canvas.Top="28" Width="100"/>
-        <Label Content="Score" Canvas.Left="931" Canvas.Top="150"/>
-        <Label Content="0" Canvas.Left="983" Canvas.Top="150"/>
-        <Label Content="0" Canvas.Left="983" Canvas.Top="711"/>
-        <Label Content="Score" Canvas.Left="931" Canvas.Top="711"/>
-        <Button Content="Submit Word" Canvas.Left="943" Canvas.Top="181" Width="116" RenderTransformOrigin="0.12,-0.7" Height="49"/>
-        <StackPanel x:Name="PlayerTray" Height="85" Canvas.Left="799" Canvas.Top="65" Width="562" Orientation="Horizontal" MouseDown="returnCharactersToTray"/>
-        <Button Content="Button" Canvas.Left="1135" Canvas.Top="184" Width="75" Click="clickResetTray"/>
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Scrabble.MainWindow"
+        Title="MainWindow" Height="698" Width="1222">
+    <Canvas Margin="0,0,2,-21" Background="#FF251E1E">
+        <Label x:Name="GameQTrack" Content="Selection Queue: " Canvas.Left="716" Canvas.Top="8" Width="416" FontSize="20" Foreground="#FF2CADC1" BorderThickness="0">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="3"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="Score" Canvas.Left="716" Canvas.Top="210" Foreground="#FF2CADC1" FontSize="20"/>
+        <Button Content="Submit Word" Canvas.Left="716" Canvas.Top="156" Width="146" RenderTransformOrigin="0.12,-0.7" Height="50" Background="#FF1D1414" Foreground="#FF0CAEDE"/>
+        <StackPanel x:Name="PlayerTray" Height="84" Canvas.Left="716" Canvas.Top="52" Width="486" Orientation="Horizontal" MouseDown="returnCharactersToTray">
+            <StackPanel.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF251E1E" Offset="0.992"/>
+                    <GradientStop Color="#FF251E1E"/>
+                    <GradientStop Color="#FF3A2D2D" Offset="0.23"/>
+                </RadialGradientBrush>
+            </StackPanel.Background>
+        </StackPanel>
+        <Button Content="Reset Tray" Canvas.Left="880" Canvas.Top="156" Width="140" Click="clickResetTray" Height="50" Background="#FF1D1414" Foreground="#FF0CAEDE"/>
+        <WrapPanel x:Name="GameBoard" Height="640" Canvas.Left="10" Canvas.Top="10" Width="640"/>
     </Canvas>
 </Window>

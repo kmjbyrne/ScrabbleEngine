@@ -13,81 +13,64 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Scrabble_WPF
+namespace Scrabble
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        int played_count;
         Queue<Button> selectionQueue;
-        Dictionary<char, int> letters;
+        TilePool tile_sack;
+        List<GameTile> game_tray;
+        List<GameTile> current_word_form;
+
         public MainWindow()
         {
+            this.current_word_form = new List<GameTile>();
+            this.tile_sack = new TilePool();
             InitializeComponent();
-            generateCharacterDict();
             initStartUp();
  
         }
         private void initStartUp()
         {
+
+            for (int i = 0; i < 16; i++)
+            {
+                for (int j = 0; j < 16; j++)
+                {
+                    Button blank = new Button();
+
+                    blank.Tag = new BoardTile();
+                    blank.Height = 40;
+                    blank.Width = 40;
+                    if (i == 8 && j == 8)
+                    {
+                        blank.Content = "X";
+                    }
+                    blank.Name = "GRID_" + i + "_" + j;
+                    blank.Click += boardTileListener;
+                    GameBoard.Children.Add(blank);
+                }
+            }
+
             for (int i = 0; i < 8; i++)
             {
-                System.Windows.Controls.Button newBtn = new Button();
-                newBtn.Height = 60;
-                newBtn.Width = 60;
-                newBtn.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+                GameTile tile = new GameTile();
+                tile.tile_chip.Height = 60;
+                tile.tile_chip.Width = 60;
+                tile.tile_chip.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+                tile.setTileState(tile_sack.getRandomLetter());
 
-                int x = new Random().Next(2);
+                Button placer = new Button();
+                placer = tile.tile_chip;
+                placer.Tag = tile;
 
-                switch (x)
-                {
-                    case 0:
-                        newBtn.Content = "A" + " (" + letters['A'] + ")";
-                        break;
-                    case 1:
-                        newBtn.Content = "B"+ " (" + letters['B'] + ")";
-                        break;
-                    case 2:
-                        newBtn.Content = "C" + " (" + letters['C'] + ")";
-                        break;
-                }
-
-                newBtn.Name = "Button" + i.ToString();
-                newBtn.Click += tileClickListener;
-                PlayerTray.Children.Add(newBtn);
+                tile.tile_chip.Click += tileClickListener;
+                PlayerTray.Children.Add(placer);
             }
-        }
-
-        private void generateCharacterDict()
-        {
-            letters = new Dictionary<char, int>();
-            letters.Add('A', 1);
-            letters.Add('B', 3);
-            letters.Add('C', 3);
-            letters.Add('D', 2);
-            letters.Add('E', 1);
-            letters.Add('F', 4);
-            letters.Add('G', 2);
-            letters.Add('H', 4);
-            letters.Add('I', 1);
-            letters.Add('J', 8);
-            letters.Add('K', 5);
-            letters.Add('L', 1);
-            letters.Add('M', 3);
-            letters.Add('N', 1);
-            letters.Add('O', 1);
-            letters.Add('P', 3);
-            letters.Add('Q', 10);
-            letters.Add('R', 1);
-            letters.Add('S', 1);
-            letters.Add('T', 1);
-            letters.Add('U', 1);
-            letters.Add('V', 4);
-            letters.Add('W', 4);
-            letters.Add('X', 8);
-            letters.Add('Y', 4);
-            letters.Add('Z', 10);
         }
 
         private void tileClickListener(object sender, EventArgs e)
@@ -97,16 +80,18 @@ namespace Scrabble_WPF
 
             selectionQueue.Enqueue((Button)sender);
             PlayerTray.Children.Remove((Button)sender);
-        }
 
-        private void TextBlock_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            if(played_count == 0)
+            {
+                foreach(Button b in GameBoard.Children)
+                {
+                    if(b.Name == "GRID_8_8")
+                    {
+                        b.BorderBrush = new SolidColorBrush(Colors.LimeGreen);
+                        b.BorderThickness = new Thickness(3);
+                    }
+                }
+            }
         }
 
         private void returnCharactersToTray(object sender, MouseButtonEventArgs e)
@@ -120,9 +105,7 @@ namespace Scrabble_WPF
             }
             catch (Exception)
             {
-
             }
-
         }
 
         private void clickResetTray(object sender, RoutedEventArgs e)
@@ -131,19 +114,44 @@ namespace Scrabble_WPF
             for (int i = 0; i < count; i++)
                 PlayerTray.Children.Add(selectionQueue.Dequeue());
         }
-    }
 
-    class Tile
-    {
-        public int id { get; set; }
-        public char letter { get; set; }
-        public int score { get; set; }
-
-        public Tile(int id, char letter, int score)
+        private void releaseTileAction(object sender, MouseButtonEventArgs e)
         {
-            this.id = id;
-            this.letter = letter;
-            this.score = score;
+            int x = 0;
+            int y = 0;
+
+            try
+            { 
+                if(selectionQueue.Count == null || selectionQueue.Count == 0){}   
+            }
+            catch(Exception)
+            {
+                        GameQTrack.Content = "Select a tile before placing a tile";
+            }
+        }
+        private void boardTileListener(object sender, EventArgs e)
+        {
+            String s = ((Button)sender).Name;
+            Button let = (Button)selectionQueue.Dequeue();
+            GameTile inner_object = (GameTile)let.Tag;
+
+            GameTile tile = new GameTile();
+            tile.tile_chip.Height = 40;
+            tile.tile_chip.Width = 40;
+            tile.tile_chip.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+            tile.setTileState(inner_object.tag);
+
+            int x = 0;
+            foreach (Button b in GameBoard.Children)
+            {
+                x++;
+                if (b.Name.Equals(s))
+                {
+                    current_word_form.Add(tile);
+                    b.Content = tile.tag.letter_alpha;
+                    b.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+                }
+            }
         }
     }
 }

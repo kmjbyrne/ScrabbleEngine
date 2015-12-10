@@ -1,4 +1,4 @@
-﻿<Window x:Class="Scrabble_WPF.SignUp"
+﻿<Window x:Class="Scrabble.SignUp"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SignUp" Height="237" Width="581.5">

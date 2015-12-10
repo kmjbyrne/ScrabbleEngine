@@ -22,9 +22,9 @@ C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\MainWindow.g.cs
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\App.g.cs
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF)_MarkupCompile.cache
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).g.resources
-C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble__WPF_.Properties.Resources.resources
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).csproj.GenerateResource.Cache
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\SignUp.baml
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\SignUp.g.cs
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Login.baml
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Login.g.cs
+C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble.Properties.Resources.resources

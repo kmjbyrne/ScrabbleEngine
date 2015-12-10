@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using System.Data.SqlServerCe;
 using System.Data;
 
-namespace Scrabble_WPF
+namespace Scrabble
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -35,7 +35,6 @@ namespace Scrabble_WPF
             SQLConnection connect = new SQLConnection();
             if (connect.checkUserCredentials(username, password))
             {
-                int y = 0;
                 MainWindow frame = new MainWindow();
                 frame.ShowDialog();
             }
