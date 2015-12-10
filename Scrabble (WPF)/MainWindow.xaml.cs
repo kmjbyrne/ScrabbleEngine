@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace Scrabble
 {
@@ -21,74 +22,107 @@ namespace Scrabble
     public partial class MainWindow : Window
     {
         int played_count;
-        Queue<Button> selectionQueue;
+        Queue<BoardTile> selectionQueue;
         TilePool tile_sack;
         List<GameTile> game_tray;
-        List<GameTile> current_word_form;
-
+        List<BoardTile> current_word_form;
+        
         public MainWindow()
         {
-            this.current_word_form = new List<GameTile>();
+            this.current_word_form = new List<BoardTile>();
             this.tile_sack = new TilePool();
             InitializeComponent();
             initStartUp();
- 
         }
         private void initStartUp()
         {
 
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 225; i++)
             {
-                for (int j = 0; j < 16; j++)
-                {
-                    Button blank = new Button();
+                BoardTile blank = new BoardTile();
 
-                    blank.Tag = new BoardTile();
-                    blank.Height = 40;
-                    blank.Width = 40;
-                    if (i == 8 && j == 8)
-                    {
-                        blank.Content = "X";
-                    }
-                    blank.Name = "GRID_" + i + "_" + j;
-                    blank.Click += boardTileListener;
-                    GameBoard.Children.Add(blank);
+                blank.Tag = new GameTile();
+                blank.Height = 40;
+                blank.Width = 40;
+                if (i == 112)
+                {
+                    blank.Content = "X";
                 }
+                blank.Name = "GRID_" + (i + 1);
+                blank.id = i;
+                blank.Click += boardTileListener;
+                GameBoard.Children.Add(blank);
             }
 
             for (int i = 0; i < 8; i++)
             {
-                GameTile tile = new GameTile();
-                tile.tile_chip.Height = 60;
-                tile.tile_chip.Width = 60;
-                tile.tile_chip.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
-                tile.setTileState(tile_sack.getRandomLetter());
+                BoardTile placer = new BoardTile();
+                placer.Height = 60;
+                placer.Width = 60;
+                placer.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+                placer.tag = tile_sack.getRandomLetter();
+                placer.Content = placer.ToString();
 
-                Button placer = new Button();
-                placer = tile.tile_chip;
-                placer.Tag = tile;
-
-                tile.tile_chip.Click += tileClickListener;
+                placer.Click += tileClickListener;
                 PlayerTray.Children.Add(placer);
+            }
+        }
+
+        private void resetBoardTiles()
+        {
+            foreach (BoardTile b in GameBoard.Children)
+            {
+                b.BorderBrush = new SolidColorBrush(Colors.Black);
+                b.BorderThickness = new Thickness(1);
             }
         }
 
         private void tileClickListener(object sender, EventArgs e)
         {
-            if (selectionQueue == null) 
-                selectionQueue = new Queue<Button>();
+            if (selectionQueue == null)
+                selectionQueue = new Queue<BoardTile>();
 
-            selectionQueue.Enqueue((Button)sender);
-            PlayerTray.Children.Remove((Button)sender);
+            selectionQueue.Enqueue((BoardTile)sender);
+            PlayerTray.Children.Remove((BoardTile)sender);
 
             if(played_count == 0)
             {
-                foreach(Button b in GameBoard.Children)
+                foreach (BoardTile b in GameBoard.Children)
                 {
-                    if(b.Name == "GRID_8_8")
+                    if(b.Content == "X")
                     {
                         b.BorderBrush = new SolidColorBrush(Colors.LimeGreen);
                         b.BorderThickness = new Thickness(3);
+                    }
+                }
+            }
+            else
+            {
+                Stack<int> sequence = new Stack<int>();
+                int x =0;
+                foreach (BoardTile b in GameBoard.Children)
+                {
+                    if (b.Content != null)
+                    {
+                        sequence.Push(x + 16);
+                        sequence.Push(x+2);
+                        sequence.Push(x);
+                        sequence.Push(x - 14);
+                    }
+                    x++;
+                }
+                foreach (BoardTile b in GameBoard.Children)
+                {
+                    String resultString = Regex.Match(b.Name.ToString(), @"\d+").Value;
+                    if(Convert.ToInt32(resultString) == sequence.Peek())
+                    {
+                        b.BorderBrush = new SolidColorBrush(Colors.LimeGreen);
+                        b.BorderThickness = new Thickness(3);
+                        sequence.Pop();
+                    }
+                    if(sequence.Count == 0)
+                    {
+                        break;
                     }
                 }
             }
@@ -131,27 +165,53 @@ namespace Scrabble
         }
         private void boardTileListener(object sender, EventArgs e)
         {
-            String s = ((Button)sender).Name;
-            Button let = (Button)selectionQueue.Dequeue();
-            GameTile inner_object = (GameTile)let.Tag;
-
-            GameTile tile = new GameTile();
-            tile.tile_chip.Height = 40;
-            tile.tile_chip.Width = 40;
-            tile.tile_chip.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
-            tile.setTileState(inner_object.tag);
-
-            int x = 0;
-            foreach (Button b in GameBoard.Children)
+            try
             {
-                x++;
-                if (b.Name.Equals(s))
+                String s = ((BoardTile)sender).Name;
+                foreach (BoardTile b in GameBoard.Children)
                 {
-                    current_word_form.Add(tile);
-                    b.Content = tile.tag.letter_alpha;
-                    b.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+                    if (b.Name.Equals(s))
+                    {
+                        if (b.occupied == true)
+                        {
+                            GameQTrack.Content = "Already occupied!";
+                        }
+                        else
+                        {
+                            BoardTile let = selectionQueue.Dequeue();
+                            let.id = b.id;
+                            current_word_form.Add(let);
+                            b.Content = let.tag.letter_alpha;
+                            b.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+                            played_count++;
+                            b.occupied = true;
+                            resetBoardTiles();
+                        }
+                    }
                 }
             }
+            catch(Exception)
+            {
+                GameQTrack.Content = "No Tiles Selected";
+            }
+        }
+
+        private void removeBoardTile(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                BoardTile s = ((BoardTile)sender);
+                BoardTile let = (BoardTile)selectionQueue.Dequeue();
+                GameTile inner_object = (GameTile)let.Tag;
+                GameBoard.Children.Remove(s);
+                played_count--;
+            }
+        }
+
+        private void clickSubmitWord(object sender, RoutedEventArgs e)
+        {
+            List<BoardTile> SortedList = current_word_form.OrderBy(o => o.id).ToList();
+            int y=0;
         }
     }
 }

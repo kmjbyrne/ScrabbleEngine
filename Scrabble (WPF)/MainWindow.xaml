@@ -10,7 +10,7 @@
             </Label.Effect>
         </Label>
         <Label Content="Score" Canvas.Left="716" Canvas.Top="210" Foreground="#FF2CADC1" FontSize="20"/>
-        <Button Content="Submit Word" Canvas.Left="716" Canvas.Top="156" Width="146" RenderTransformOrigin="0.12,-0.7" Height="50" Background="#FF1D1414" Foreground="#FF0CAEDE"/>
+        <Button Content="Submit Word" Canvas.Left="716" Canvas.Top="156" Width="146" RenderTransformOrigin="0.12,-0.7" Height="50" Background="#FF1D1414" Foreground="#FF0CAEDE" Click="clickSubmitWord"/>
         <StackPanel x:Name="PlayerTray" Height="84" Canvas.Left="716" Canvas.Top="52" Width="486" Orientation="Horizontal" MouseDown="returnCharactersToTray">
             <StackPanel.Background>
                 <RadialGradientBrush>
@@ -21,6 +21,6 @@
             </StackPanel.Background>
         </StackPanel>
         <Button Content="Reset Tray" Canvas.Left="880" Canvas.Top="156" Width="140" Click="clickResetTray" Height="50" Background="#FF1D1414" Foreground="#FF0CAEDE"/>
-        <WrapPanel x:Name="GameBoard" Height="640" Canvas.Left="10" Canvas.Top="10" Width="640"/>
+        <WrapPanel x:Name="GameBoard" Height="600" Canvas.Left="10" Canvas.Top="10" Width="600" MouseDown="removeBoardTile"/>
     </Canvas>
 </Window>

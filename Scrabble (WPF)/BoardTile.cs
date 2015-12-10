@@ -7,12 +7,21 @@ using System.Windows.Controls;
 
 namespace Scrabble
 {
-    class BoardTile : Tile
+    class BoardTile : Button
     {
+        public bool occupied { get; set; }
+        public int id { get; set; }
+        public Letter tag { get; set; }
+
         public BoardTile()
         {
-            this.tile_chip = new Button();
-            this.tile_chip.FontSize = 15;
+            this.Width = 40;
+            this.Height = 40;
+        }
+
+        public override string ToString()
+        {
+            return this.tag.letter_alpha + " (" + this.tag.score_value +")";
         }
     }
 }

@@ -51,8 +51,7 @@ namespace Scrabble
                 for (int i = 0; i < r.distribution_count; i++)
 			    {
                     hold_long.Add(r);
-			    }
-                    
+			    }    
             }
 
             return hold_long;
@@ -60,10 +59,11 @@ namespace Scrabble
 
         public Letter getRandomLetter()
         {
+            int micros = DateTime.Now.Millisecond;
             int random_base = new Random().Next(0, letters.Count);
             int random_mod = new Random().Next(new Random().Next(100, 945345));
-            int random = random_base % random_mod;
-
+            int random = (random_mod * micros) % random_base;
+            
 
             Letter l = letters[random];
             letters[random].decrementCount();
