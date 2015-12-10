@@ -196,22 +196,53 @@ namespace Scrabble
             }
         }
 
-        private void removeBoardTile(object sender, MouseButtonEventArgs e)
+        private void removeBoardTile()
         {
-            if (e.ChangedButton == MouseButton.Right)
-            {
-                BoardTile s = ((BoardTile)sender);
-                BoardTile let = (BoardTile)selectionQueue.Dequeue();
-                GameTile inner_object = (GameTile)let.Tag;
-                GameBoard.Children.Remove(s);
-                played_count--;
-            }
         }
 
         private void clickSubmitWord(object sender, RoutedEventArgs e)
         {
             List<BoardTile> SortedList = current_word_form.OrderBy(o => o.id).ToList();
+
+            WordValidation wv = new WordValidation();
+
+            String s ="";
+            foreach(BoardTile b in SortedList)
+            {
+                s += b.tag.letter_alpha;
+            }
+
+            bool result = wv.isWord(s);
+
+            if(result == true)
+            {
+                int score = wv.getScore(SortedList);
+            }
+            else
+            {
+                GameQTrack.Content = "Not a valid word!";
+                resetGameSelections();
+            }
+            
             int y=0;
+        }
+
+        private void resetGameSelections()
+        {
+            foreach(BoardTile b in current_word_form)
+            {
+                if(b.accepted_placement==false)
+                {
+                    b.Height = 60;
+                    b.Width = 60;
+                    PlayerTray.Children.Add(b);
+                    BoardTile temp = new BoardTile();
+                    temp.id = b.id;
+                    b.tag = null;
+                    played_count--;
+                }
+                
+            }
         }
     }
 }

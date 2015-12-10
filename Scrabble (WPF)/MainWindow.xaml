@@ -21,6 +21,6 @@
             </StackPanel.Background>
         </StackPanel>
         <Button Content="Reset Tray" Canvas.Left="880" Canvas.Top="156" Width="140" Click="clickResetTray" Height="50" Background="#FF1D1414" Foreground="#FF0CAEDE"/>
-        <WrapPanel x:Name="GameBoard" Height="600" Canvas.Left="10" Canvas.Top="10" Width="600" MouseDown="removeBoardTile"/>
+        <WrapPanel x:Name="GameBoard" Height="600" Canvas.Left="10" Canvas.Top="10" Width="600"/>
     </Canvas>
 </Window>

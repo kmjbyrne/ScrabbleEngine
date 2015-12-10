@@ -9,6 +9,8 @@ namespace Scrabble
 {
     class BoardTile : Button
     {
+        public bool accepted_placement { get; set; }
+        public int bonus_multiplier;
         public bool occupied { get; set; }
         public int id { get; set; }
         public Letter tag { get; set; }

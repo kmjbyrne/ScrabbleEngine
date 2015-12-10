@@ -104,5 +104,19 @@ namespace Scrabble
             da.Fill(dt);
             return dt;
         }
+
+        public DataTable getWords(String s)
+        {
+            DataTable dt = new DataTable();
+
+            String query = "SELECT * FROM WORDS WHERE WORD = @word";
+
+            SqlCeCommand comm = new SqlCeCommand(query, conn);
+            comm.Parameters.AddWithValue("@word", s);
+            comm.ExecuteNonQuery();
+            SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+            da.Fill(dt);
+            return dt;
+        }
     }
 }
