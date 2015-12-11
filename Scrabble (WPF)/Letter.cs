@@ -24,6 +24,10 @@ namespace Scrabble
         {
             this.distribution_count -= 1;
         }
+        public void incrementCount()
+        {
+            this.distribution_count++;
+        }
         public override string ToString()
         {
             return this.letter_alpha + " (" + this.score_value + ")";

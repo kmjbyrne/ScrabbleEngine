@@ -105,6 +105,23 @@ namespace Scrabble
             return dt;
         }
 
+        public List<String> getWords()
+        {
+            DataTable dt = new DataTable();
+
+            String query = "SELECT * FROM WORDS";
+
+            SqlCeCommand comm = new SqlCeCommand(query, conn);
+            comm.ExecuteNonQuery();
+            SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+            da.Fill(dt);
+            List<String> output = new List<string>();
+            foreach(DataRow r in dt.Rows)
+            {
+                output.Add(r["WORD"].ToString().ToUpper());
+            }
+            return output;
+        }
         public DataTable getWords(String s)
         {
             DataTable dt = new DataTable();

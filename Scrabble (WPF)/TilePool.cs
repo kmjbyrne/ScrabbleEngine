@@ -59,16 +59,25 @@ namespace Scrabble
 
         public Letter getRandomLetter()
         {
-            int micros = DateTime.Now.Millisecond;
-            int random_base = new Random().Next(0, letters.Count);
-            int random_mod = new Random().Next(new Random().Next(100, 945345));
-            int random = (random_mod * micros) % random_base;
-            
+            Random random = new Random((int)DateTime.Now.Ticks & (0x0000FFFF ));
+            int random_base = random.Next() % letters.Count;
 
-            Letter l = letters[random];
-            letters[random].decrementCount();
+            Letter l = letters[random_base];
+            letters[random_base].decrementCount();
             letters.Remove(l);
             return l;
+        }
+
+        public void callLetterIncrement(BoardTile t)
+        {
+            Letter hold = t.tag;
+            foreach(Letter l in letters)
+            {
+                if(l.letter_alpha == hold.letter_alpha)
+                {
+                    l.incrementCount();
+                }
+            }
         }
     }
 }

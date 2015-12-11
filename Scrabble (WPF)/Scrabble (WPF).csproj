@@ -58,7 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AIEngine.cs" />
     <Compile Include="BoardTile.cs" />
+    <Compile Include="GameStatistics.cs" />
     <Compile Include="Letter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -71,7 +73,7 @@
     <Compile Include="Tile.cs" />
     <Compile Include="TilePool.cs" />
     <Compile Include="Tray.cs" />
-    <Compile Include="WordValidation.cs" />
+    <Compile Include="WordBuffer.cs" />
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
