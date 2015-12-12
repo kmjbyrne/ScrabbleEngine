@@ -35,7 +35,7 @@ namespace Scrabble
             SQLConnection connect = new SQLConnection();
             if (connect.checkUserCredentials(username, password))
             {
-                MainWindow frame = new MainWindow();
+                MainGameWindow frame = new MainGameWindow();
                 frame.ShowDialog();
             }
             else

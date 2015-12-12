@@ -61,10 +61,12 @@
     <Compile Include="AIEngine.cs" />
     <Compile Include="BoardTile.cs" />
     <Compile Include="GameStatistics.cs" />
+    <Compile Include="IPrefixMatcher.cs" />
     <Compile Include="Letter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PrefixMatcher.cs" />
     <Compile Include="SignUp.xaml.cs">
       <DependentUpon>SignUp.xaml</DependentUpon>
     </Compile>
@@ -73,6 +75,8 @@
     <Compile Include="Tile.cs" />
     <Compile Include="TilePool.cs" />
     <Compile Include="Tray.cs" />
+    <Compile Include="Trie.cs" />
+    <Compile Include="TrieNode.cs" />
     <Compile Include="WordBuffer.cs" />
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>

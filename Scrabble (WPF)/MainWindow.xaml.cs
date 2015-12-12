@@ -19,7 +19,7 @@ namespace Scrabble
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainGameWindow : Window
     {
         int played_count;
         Queue<BoardTile> selectionQueue;
@@ -27,8 +27,9 @@ namespace Scrabble
         TilePool tile_sack;
         GameStatistics stats;
         AIEngine AI;
+        const int CENTRE_GRID = 112;
         
-        public MainWindow()
+        public MainGameWindow()
         {
             this.AI = new AIEngine();
             this.stats = new GameStatistics();
@@ -231,6 +232,7 @@ namespace Scrabble
             for (int i = 0; i < 8 - counter; i++)
             {
                 BoardTile placer = new BoardTile();
+                placer.Margin = new Thickness(2, 0,0,0);
                 placer.Height = 60;
                 placer.Width = 60;
                 placer.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
@@ -250,8 +252,22 @@ namespace Scrabble
             beginAISequence();
         }
 
+        private void clearPlacementSelectionBorder()
+        {
+            foreach(BoardTile t in GameBoard.Children)
+            {
+                t.BorderBrush = new SolidColorBrush(Colors.Gray);
+                t.BorderThickness = new Thickness(1);
+            }
+        }
+
         private void tileClickListener(object sender, EventArgs e)
         {
+            int sequence_up = -15;
+            int sequence_down = 15;
+            int sequence_left = -1;
+            int sequence_right = 1;
+
             if (selectionQueue == null)
                 selectionQueue = new Queue<BoardTile>();
 
@@ -261,44 +277,69 @@ namespace Scrabble
             SelectedSequence.Content += "" + placeholder.tag.letter_alpha + " ";
             PlayerTray.Children.Remove((BoardTile)sender);
 
-            if(played_count == 0)
+            int counter = selectionQueue.Count;
+
+            List<int> sequence = new List<int>();
+
+            if (played_count == 0)
             {
-                foreach (BoardTile b in GameBoard.Children)
+                if (counter == 1)
                 {
-                    if(b.Content == "X")
+                    sequence.Add(CENTRE_GRID);
+                }
+                else
+                {
+                    for (int i = 1; i < counter; i++)
                     {
-                        b.BorderBrush = new SolidColorBrush(Colors.LimeGreen);
-                        b.BorderThickness = new Thickness(3);
+                        sequence.Add(CENTRE_GRID + (sequence_up * i));
+                        sequence.Add(CENTRE_GRID + (sequence_down * i));
+                        sequence.Add(CENTRE_GRID + (sequence_right * i));
+                        sequence.Add(CENTRE_GRID + (sequence_left * i));
+                    }
+                }
+                sequence = sequence.OrderBy(o => o).ToList();
+
+                foreach (int t in sequence)
+                {
+                    if (t > -1 && t < 225)
+                    {
+                        BoardTile holder = (BoardTile)GameBoard.Children[t];
+                        holder.BorderBrush = new SolidColorBrush(Colors.LimeGreen);
+                        holder.BorderThickness = new Thickness(3);
+                        holder.placement_possible = true;
                     }
                 }
             }
-            else
+            else if(played_count > 0)
             {
-                Stack<int> sequence = new Stack<int>();
-                int x =0;
-                foreach (BoardTile b in GameBoard.Children)
+                List<int> placed_tile_id = new List<int>();
+                foreach(BoardTile t in GameBoard.Children)
                 {
-                    if (b.Content != null)
+                    if(t.accepted_placement == true)
                     {
-                        sequence.Push(x + 16);
-                        sequence.Push(x+2);
-                        sequence.Push(x);
-                        sequence.Push(x - 14);
+                        placed_tile_id.Add(t.id);
                     }
-                    x++;
                 }
-                foreach (BoardTile b in GameBoard.Children)
+                foreach(int x in placed_tile_id)
                 {
-                    String resultString = Regex.Match(b.Name.ToString(), @"\d+").Value;
-                    if(Convert.ToInt32(resultString) == sequence.Peek())
+                    for (int i = 1; i < counter + 1; i++)
                     {
-                        b.BorderBrush = new SolidColorBrush(Colors.LimeGreen);
-                        b.BorderThickness = new Thickness(3);
-                        sequence.Pop();
+                        sequence.Add(x + (sequence_up * counter));
+                        sequence.Add(x + (sequence_down * counter));
+                        sequence.Add(x + (sequence_right * counter));
+                        sequence.Add(x + (sequence_left * counter));
                     }
-                    if(sequence.Count == 0)
+                    sequence = sequence.OrderBy(o => o).ToList();
+
+                    foreach (int t in sequence)
                     {
-                        break;
+                        if (t > 0 && t < 224)
+                        {
+                            BoardTile holder = (BoardTile)GameBoard.Children[t];
+                            holder.BorderBrush = new SolidColorBrush(Colors.LimeGreen);
+                            holder.BorderThickness = new Thickness(3);
+                            holder.placement_possible = true;
+                        }
                     }
                 }
             }
@@ -333,7 +374,7 @@ namespace Scrabble
 
                 foreach (BoardTile t in storage)
                 {
-                    if (t.accepted_placement == false && t.occupied == true)
+                    if (t.accepted_placement == false && t.placement_possible == true)
                     {
                         this.generateTrayFromBoard(t);
                         this.resetBoardTile(t);
@@ -343,8 +384,22 @@ namespace Scrabble
             catch (Exception)
             {
             }
+
+            this.flushSelectionQueue();
         }
 
+        private void flushSelectionQueue()
+        {
+            BoardTile[] storage = new BoardTile[selectionQueue.Count];
+            selectionQueue.CopyTo(storage, 0);
+
+            foreach (BoardTile item in storage)
+            {
+                PlayerTray.Children.Add(selectionQueue.Dequeue());
+            }
+
+            SelectedSequence.Content = "";
+        }
         private void resetBoardTile(BoardTile board_tile)
         {
             BoardTile blank = new BoardTile();
@@ -352,6 +407,7 @@ namespace Scrabble
             blank.Tag = new BoardTile();
             blank.Height = 40;
             blank.Width = 40;
+            blank.BorderBrush = new SolidColorBrush(Colors.Gray);
 
             if (board_tile.id == 112)
             {
@@ -360,8 +416,18 @@ namespace Scrabble
             blank.Name = board_tile.Name;
             blank.id = board_tile.id;
             blank.Click += boardTileListener;
+            blank.bonus_multiplier = board_tile.bonus_multiplier;
+
             GameBoard.Children.RemoveAt(board_tile.id);
             GameBoard.Children.Insert(board_tile.id, blank);
+
+            foreach (BoardTile t in GameBoard.Children)
+            {
+                if(t.placement_possible == true && t.accepted_placement == false)
+                {
+                    t.BorderBrush = null;
+                }
+            }
         }
         private void generateTrayFromBoard(BoardTile board_tile)
         {
@@ -401,7 +467,11 @@ namespace Scrabble
                     {
                         if (b.occupied == true)
                         {
-                            GameQTrack.Content = "Already occupied!";
+                            MessageBox.Show("Already occupied", "Alert", MessageBoxButton.OK);
+                        }
+                        else if(b.placement_possible == false)
+                        {
+                            MessageBox.Show("Placement is out of bounds", "Alert", MessageBoxButton.OK);
                         }
                         else
                         {
@@ -412,9 +482,11 @@ namespace Scrabble
                             b.Content = let.tag.letter_alpha;
                             b.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
                             let.bonus_multiplier = b.bonus_multiplier;
+                            b.FontWeight = FontWeights.UltraBold;
                             played_count++;
                             b.occupied = true;
                             b.tag = let.tag;
+                            clearPlacementSelectionBorder();
                         }
                     }
                 }
@@ -423,10 +495,6 @@ namespace Scrabble
             {
                 GameQTrack.Content = "No Tiles Selected";
             }
-        }
-
-        private void removeBoardTile()
-        {
         }
 
         private void clickSubmitWord(object sender, RoutedEventArgs e)
@@ -491,6 +559,7 @@ namespace Scrabble
                 this.ScoreLabel.Content = this.stats.total_score_player;
                 this.beginAISequence();
             }
+            clearPlacementSelectionBorder();
         }
         private int hasAdjacentSouth(int location)
         {
@@ -544,14 +613,32 @@ namespace Scrabble
         private void beginAISequence()
         {
             AIStatusReadout.Text = "Current AI Word Distribution: \r\n";
+            AI.fillGameTree(game_logic.getAllWords());
+        }
+
+        private void AIPerformTurn()
+        {
             int counter = AI.current_list.Count;
-            for(int i =0; i < 8 - counter; i++)
+            for (int i = 0; i < 8 - counter; i++)
             {
                 BoardTile fresh_tile = new BoardTile();
                 fresh_tile.tag = tile_sack.getRandomLetter();
                 AI.current_list.Add(fresh_tile);
                 AIStatusReadout.Text += fresh_tile.tag.ToString() + "  ";
             }
+
+            List<BoardTile> possible_entry_points = new List<BoardTile>();
+
+            foreach(BoardTile t in GameBoard.Children)
+            {
+                if(t.placement_possible == true && t.occupied == false)
+                {
+
+                }
+            }
+
+            AI.retrieveSuperSet();
+            int y = 0;
         }
 
         private void clickRequestNewTray(object sender, RoutedEventArgs e)
