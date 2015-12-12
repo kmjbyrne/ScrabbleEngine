@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Scrabble
 {
@@ -55,6 +56,7 @@ namespace Scrabble
                 else if(t.bonus_multiplier.Key == 'W')
                 {
                     total_bonus = t.bonus_multiplier.Value;
+                    score += t.tag.score_value;
                 }
                 else if(t.bonus_multiplier.Key =='X') 
                 {
@@ -65,7 +67,7 @@ namespace Scrabble
 
             if(total_bonus == 0)
                 this.score = score;
-            else if(total_bonus == 1)
+            else if(total_bonus > 0)
                 this.score = score * total_bonus;    
         }
 
@@ -109,8 +111,10 @@ namespace Scrabble
 
         public List<String> getAllWords()
         {
+            long counter_pre = DateTime.Now.Millisecond;
             SQLConnection connect = new SQLConnection();
             List<String> output = connect.getWords();
+            long counter_post= DateTime.Now.Millisecond;
             return output;
         }
         public void clearBuffer()

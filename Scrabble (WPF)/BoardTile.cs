@@ -16,6 +16,12 @@ namespace Scrabble
         public int id { get; set; }
         public Letter tag { get; set; }
 
+        public BoardTile left { get; set; }
+        public BoardTile right { get; set; }
+        public BoardTile up { get; set; }
+        public BoardTile down { get; set; }
+                
+
         public BoardTile()
         {
             this.accepted_placement = false;
@@ -26,7 +32,7 @@ namespace Scrabble
 
         public override string ToString()
         {
-            return this.tag.letter_alpha + " (" + this.tag.score_value +")";
+            return this.tag.letter_alpha + " (" + this.tag.score_value + ")";
         }
     }
 }

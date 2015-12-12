@@ -51,12 +51,159 @@ namespace Scrabble
                     blank.Content = "X";
                 }
                 blank.Name = "GRID_" + (i + 1);
-                blank.id = i;
                 blank.Content = i.ToString();
+                blank.id = i;
                 blank.Click += boardTileListener;
+                blank.MouseEnter += tileDebug;
+                blank.FontWeight = FontWeights.Bold;
                 GameBoard.Children.Add(blank);
             }
+            generateGridMapping();
         }
+
+        private void generateGridMapping()
+        {
+            int x = 0;
+            foreach (BoardTile t in GameBoard.Children)
+            {
+                try
+                {
+                    t.right = (BoardTile)GameBoard.Children[x + 1];
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                        t.Content = "SE";
+                        t.down = null;
+                        t.right = null;
+                        setBonusTripleWordScore(t);
+                }
+                try
+                {
+                    t.left = (BoardTile)GameBoard.Children[x - 1];
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                }
+                try
+                {
+                    t.up = (BoardTile)GameBoard.Children[x - 15];
+                }
+                catch(ArgumentOutOfRangeException)
+                {
+                    t.Content = "N";
+                    t.up = null;
+                }
+                try
+                {
+                    t.down = (BoardTile)GameBoard.Children[x + 15];
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    if (t.id != 224)
+                    {
+                        t.Content = "S";
+                        t.up = null;
+                    }
+                }
+
+                //North west boundary mapping
+                if (t.id == 0)
+                {
+                    t.Content = "NW";
+                    t.left = null;
+                    t.up = null;
+                    setBonusTripleWordScore(t);
+                }
+
+                //North East Boundary Mapping
+                if (t.id < 15 && t.id != 0)
+                {
+                    t.Content = "N";
+                    t.up = null;
+                    if (t.id == 14)
+                    {
+                        t.Content = "NE";
+                        t.up = null;
+                        t.right = null;
+                        setBonusTripleWordScore(t);
+                    }
+                }
+
+                //Western boundary mappings
+                if (t.id % 15 == 0 && t.down != null && t.id != 0)
+                {
+                    t.Content = "W";
+                    t.left = null;
+                }
+
+                else if(t.id % 15 == 0 && t.down == null)
+                {
+                    t.Content = "SW";
+                    setBonusTripleWordScore(t);
+                }
+
+                //Eastern boundary mappings
+                if (t.id % 15 == 14 && t.id != 0)
+                {
+                    if (t.id == 14)
+                    {
+                        t.Content = "NE";
+                        t.up = null;
+                        t.right = null;
+                        setBonusTripleWordScore(t);
+                        
+                    }
+                    else if(t.id != 224)
+                    {
+                        t.Content = "E";
+                        t.right = null;
+                    }
+                }
+
+                x++;
+
+                if(t.left != null && t.up != null && t.down != null & t.right != null)
+                {
+                    if(t.id % 16 == 0)
+                        setBonusDoubleWordScore(t);
+                    else if (t.id % 14 == 0)
+                        setBonusDoubleWordScore(t);
+                }
+            }
+        }
+
+        private void setBonusTripleWordScore(BoardTile t)
+        {
+            t.Background = new SolidColorBrush(Colors.Red);
+            t.Content = "3x WS";
+            t.bonus_multiplier = new KeyValuePair<char, int>('W', 3);
+        }
+        private void setBonusDoubleWordScore(BoardTile t)
+        {
+            if(t.id == 112)
+            {
+                t.Content = "X";
+                t.FontWeight = FontWeights.UltraBold;
+                t.Background = new SolidColorBrush(Colors.Yellow);
+            }
+            else
+            {
+                t.Background = new SolidColorBrush(Colors.Pink);
+                t.Content = "2x WS";
+                t.bonus_multiplier = new KeyValuePair<char, int>('W', 2);
+            }
+        }
+        private void tileDebug(object sender, MouseEventArgs e)
+        {
+            BoardTile b = (BoardTile)(sender);
+            String stringout = "";
+
+            //stringout += b.left.ToString() + "\r\n";
+            //stringout += b.right.ToString() + "\r\n";
+            //stringout += b.up.ToString() + "\r\n";
+            //stringout += b.down.ToString() + "\r\n";
+        }
+
         private void drawRefresh()
         {
             for (int i = 0; i < 225; i++)
@@ -101,15 +248,6 @@ namespace Scrabble
             drawBegin();
             drawTray();
             beginAISequence();
-        }
-
-        private void resetBoardTiles()
-        {
-            foreach (BoardTile b in GameBoard.Children)
-            {
-                b.BorderBrush = new SolidColorBrush(Colors.Black);
-                b.BorderThickness = new Thickness(1);
-            }
         }
 
         private void tileClickListener(object sender, EventArgs e)
@@ -273,10 +411,10 @@ namespace Scrabble
                             this.game_logic.addToSequence(let);
                             b.Content = let.tag.letter_alpha;
                             b.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+                            let.bonus_multiplier = b.bonus_multiplier;
                             played_count++;
                             b.occupied = true;
                             b.tag = let.tag;
-                            resetBoardTiles();
                         }
                     }
                 }
