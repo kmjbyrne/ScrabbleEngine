@@ -1,0 +1,6 @@
+c:\users\liam\documents\visual studio 2013\Projects\trie loading\trie loading\bin\Debug\trie loading.exe.config
+c:\users\liam\documents\visual studio 2013\Projects\trie loading\trie loading\bin\Debug\trie loading.exe
+c:\users\liam\documents\visual studio 2013\Projects\trie loading\trie loading\bin\Debug\trie loading.pdb
+c:\users\liam\documents\visual studio 2013\Projects\trie loading\trie loading\obj\Debug\trie loading.csprojResolveAssemblyReference.cache
+c:\users\liam\documents\visual studio 2013\Projects\trie loading\trie loading\obj\Debug\trie loading.exe
+c:\users\liam\documents\visual studio 2013\Projects\trie loading\trie loading\obj\Debug\trie loading.pdb
