@@ -7,7 +7,6 @@ G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\De
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\App.g.cs
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF)_MarkupCompile.cache
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).g.resources
-G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble__WPF_.Properties.Resources.resources
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).csproj.GenerateResource.Cache
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).exe
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble (WPF).pdb
@@ -28,3 +27,8 @@ C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\SignUp.g.cs
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Login.baml
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Login.g.cs
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble.Properties.Resources.resources
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Login.baml
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\SignUp.baml
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Login.g.cs
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\SignUp.g.cs
+G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble.Properties.Resources.resources

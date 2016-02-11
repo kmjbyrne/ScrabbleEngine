@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -210,7 +211,6 @@ namespace Scrabble
             for (int i = 0; i < 225; i++)
             {
                 BoardTile blank = new BoardTile();
-
                 blank.Tag = new BoardTile();
                 blank.Height = 40;
                 blank.Width = 40;
@@ -231,22 +231,26 @@ namespace Scrabble
             int counter = PlayerTray.Children.Count;
             for (int i = 0; i < 8 - counter; i++)
             {
-                BoardTile placer = new BoardTile();
-                placer.Margin = new Thickness(2, 0,0,0);
-                placer.Height = 60;
-                placer.Width = 60;
-                placer.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
-                placer.tag = tile_sack.getRandomLetter();
-                placer.Content = placer.ToString();
-
+                BoardTile placer = drawTile(tile_sack.getRandomLetter());
                 placer.Click += tileClickListener;
                 PlayerTray.Children.Add(placer);
             }
         }
 
+        private BoardTile drawTile(Letter Tag)
+        {
+            BoardTile placer = new BoardTile();
+            placer.Margin = new Thickness(2, 0, 0, 0);
+            placer.Height = 60;
+            placer.Width = 60;
+            placer.tag = Tag;
+            placer.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative))};
+            placer.Content = placer.ToString();
+            return placer;
+        }
+
         private void initStartUp()
         {
-
             drawBegin();
             drawTray();
             beginAISequence();
@@ -281,6 +285,7 @@ namespace Scrabble
 
             List<int> sequence = new List<int>();
 
+            #region Only applicable for turn 1
             if (played_count == 0)
             {
                 if (counter == 1)
@@ -309,7 +314,8 @@ namespace Scrabble
                         holder.placement_possible = true;
                     }
                 }
-            }
+            } 
+            #endregion
             else if(played_count > 0)
             {
                 List<int> placed_tile_id = new List<int>();
@@ -352,6 +358,7 @@ namespace Scrabble
                 if (e.ChangedButton == MouseButton.Right)
                 {
                     PlayerTray.Children.Add(selectionQueue.Dequeue());
+                    SelectedSequence[(SelectedSequence.ToString().Length) - 1] = "";
                 }
             }
             catch (Exception)
@@ -364,6 +371,10 @@ namespace Scrabble
             resetTray();
         }
 
+        private void removeUnsetBoardTiles()
+        {
+           
+        }
         private void resetTray()
         {
             try
@@ -374,10 +385,11 @@ namespace Scrabble
 
                 foreach (BoardTile t in storage)
                 {
-                    if (t.accepted_placement == false && t.placement_possible == true)
+                    if (t.accepted_placement == false && t.occupied==true)
                     {
                         this.generateTrayFromBoard(t);
                         this.resetBoardTile(t);
+                        game_logic.selection.Clear();
                     }
                 }
             }
@@ -417,6 +429,8 @@ namespace Scrabble
             blank.id = board_tile.id;
             blank.Click += boardTileListener;
             blank.bonus_multiplier = board_tile.bonus_multiplier;
+            blank.placement_possible = true;
+            blank.Content = board_tile.id.ToString();
 
             GameBoard.Children.RemoveAt(board_tile.id);
             GameBoard.Children.Insert(board_tile.id, blank);
@@ -436,7 +450,7 @@ namespace Scrabble
             placer.Width = 60;
             placer.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
             placer.tag = board_tile.tag;
-            placer.Content = placer.ToString();
+            placer.Content = board_tile.ToString();
 
             placer.Click += tileClickListener;
             PlayerTray.Children.Add(placer);
@@ -476,7 +490,8 @@ namespace Scrabble
                         else
                         {
                             BoardTile let = selectionQueue.Dequeue();
-                            SelectedSequence.Content = SelectedSequence.Content.ToString().Substring(0, SelectedSequence.Content.ToString().Length - 2);
+                           
+                            Sequence.Content = SelectedSequence.Content.ToString().Substring(0, SelectedSequence.Content.ToString().Length - 2);
                             let.id = b.id;
                             this.game_logic.addToSequence(let);
                             b.Content = let.tag.letter_alpha;
@@ -501,37 +516,35 @@ namespace Scrabble
         {
             foreach(BoardTile t in GameBoard.Children)
             {
-                if (t.occupied == true && t.accepted_placement == false)
+                int x = 0;
+                if (t.occupied == true && t.accepted_placement == true && x < selectionQueue.Count)
                 {
-                    int x =0;
+                    
                     int id = t.id;
-                    while (x < 99)
+
+                    if (this.hasAdjacent(id) != 0)
                     {
-                        if (this.hasAdjacentSouth(id) != 0)
+                        BoardTile placeholder = new BoardTile();
+                        BoardTile game_piece = (BoardTile)GameBoard.Children[t.id + this.hasAdjacent(t.id)];
+                        placeholder.id = game_piece.id;
+                        placeholder.tag = game_piece.tag;
+
+                        try
                         {
-                                BoardTile placeholder = new BoardTile();
-                                BoardTile game_piece = (BoardTile)GameBoard.Children[t.id + this.hasAdjacentSouth(t.id)];
-                                placeholder.id = game_piece.id;
-                                placeholder.tag = game_piece.tag;
-
-                                try
-                                {
-                                    this.game_logic.addToSequence(placeholder);
-                                    break;
-                                }
-                                catch (Exception)
-                                {
-
-                                }
+                            this.game_logic.addToSequence(placeholder);
+                             
                         }
-                        else
-                            break;
-                    }
+                        catch (Exception)
+                        {
 
-                    for (int i = 0; i < x; i++)
-                    {
-                        
+                        }
+                        break;
                     }
+                    else
+                    {
+                        break;
+                    }
+                    x++;
                 }
             }
             this.game_logic.sortInputList();
@@ -558,23 +571,25 @@ namespace Scrabble
                 this.game_logic.clearBuffer();
                 this.ScoreLabel.Content = this.stats.total_score_player;
                 this.beginAISequence();
+                clearPlacementSelectionBorder();
+                AIPerformTurn();
             }
-            clearPlacementSelectionBorder();
+            
         }
-        private int hasAdjacentSouth(int location)
+        private int hasAdjacent(int location)
         {
             //If there exists a tile below this tile
             //It is included in the current input String
             BoardTile placeholderS = (BoardTile)GameBoard.Children[location + 15];
             BoardTile placeholderN = (BoardTile)GameBoard.Children[location - 15];
             BoardTile placeholderE = (BoardTile)GameBoard.Children[location + 1];
-            BoardTile placeholderW = (BoardTile)GameBoard.Children[location -1];
+            BoardTile placeholderW = (BoardTile)GameBoard.Children[location - 1];
 
             if (placeholderS.accepted_placement == true)
             {
                 return 15;
             }
-            else if(placeholderN.accepted_placement == true)
+            else if (placeholderN.accepted_placement == true)
             {
                 return -15;
             }
@@ -587,6 +602,39 @@ namespace Scrabble
                 return -1;
             }
             return 0;
+        }
+        private bool hasAdjacentEast(BoardTile t)
+        {
+            //If there exists a tile below this tile
+            //It is included in the current input String
+
+            if (t.right.tag != null)
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool hasAdjacentWest(BoardTile t)
+        {
+            //If there exists a tile below this tile
+            //It is included in the current input String
+
+            if (t.left.tag != null)
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool hasAdjacentNorth(BoardTile t)
+        {
+            //If there exists a tile below this tile
+            //It is included in the current input String
+
+            if (t.up.tag != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void resetGameSelections()
@@ -606,7 +654,6 @@ namespace Scrabble
                     b.Width = 40;
                     this.played_count--;
                 }
-                
             }
         }
 
@@ -618,7 +665,11 @@ namespace Scrabble
 
         private void AIPerformTurn()
         {
+            
+            game_logic.clearBuffer();
             int counter = AI.current_list.Count;
+            AI.current_list.Clear();
+            
             for (int i = 0; i < 8 - counter; i++)
             {
                 BoardTile fresh_tile = new BoardTile();
@@ -627,18 +678,177 @@ namespace Scrabble
                 AIStatusReadout.Text += fresh_tile.tag.ToString() + "  ";
             }
 
-            List<BoardTile> possible_entry_points = new List<BoardTile>();
 
-            foreach(BoardTile t in GameBoard.Children)
+            List<BoardTile> joint_structure = new List<BoardTile>();
+
+            List<BoardTile> candidate_entry_points = new List<BoardTile>();
+            foreach (BoardTile bt in GameBoard.Children)
             {
-                if(t.placement_possible == true && t.occupied == false)
+                if (bt.accepted_placement == true)
                 {
-
+                    candidate_entry_points.Add(bt);
+                    AI.current_list.Add(bt);
                 }
             }
 
             AI.retrieveSuperSet();
             int y = 0;
+            List<int> placed_char_index = new List<int>();
+            List<String> ai_placement_buffer = new List<String>();
+            Dictionary<KeyValuePair<int, int>, List<BoardTile>> play_candidates = new Dictionary<KeyValuePair<int, int>, List<BoardTile>>();
+            int index = 0;
+            int root = 0; //Will need later for loc recall
+
+            foreach(BoardTile bt in candidate_entry_points)
+            {
+                //Consider word placement from here
+                //Calculate score, determine strongest
+                //Option to place, verify and place.
+                foreach (String s in AI.possible_words)
+                { 
+                    if (s.Contains(bt.tag.letter_alpha))
+                    {
+                        root = s.IndexOf(bt.tag.letter_alpha);
+                        //Mark buffer as possible word placement
+                        game_logic.selection = game_logic.getTilesFromString(s, bt, root-1, candidate_entry_points);
+                        game_logic.calculateScore();
+                        game_logic.root_location = root;
+                        KeyValuePair<int, int> fill = new KeyValuePair<int, int>(index, game_logic.score);
+                        play_candidates.Add(fill, game_logic.selection);
+                        index++;
+                    }
+                }
+            }
+
+            KeyValuePair<int, int> dict_index_score = new KeyValuePair<int, int>();
+            foreach (KeyValuePair<int, int> kvp in play_candidates.Keys)
+            {
+                if (kvp.Value > dict_index_score.Value)
+                {
+                    dict_index_score = new KeyValuePair<int, int>(kvp.Key, kvp.Value);
+                    game_logic.selection = play_candidates[kvp];
+                    game_logic.calculateScore();
+                }
+            }
+
+            int n = 0;
+            String output_word = "";
+            foreach(List<BoardTile> item in play_candidates.Values)
+            { 
+                if (n == dict_index_score.Key)
+                {
+                    int marker = 0;
+                    //Attempt to play word selection
+                    foreach (BoardTile t in item)
+                    {
+                        output_word += t.tag.letter_alpha;
+                        List<BoardTile> outer_storage = new List<BoardTile>();
+                        outer_storage.AddRange(item);
+                        if (t.accepted_placement == true)
+                        {
+                            if (t.up.accepted_placement == false && t.down.accepted_placement == false)
+                            {
+                                int new_loc = t.id;
+                                for (int i = marker; i >= 0; i--)
+                                {
+                                    try
+                                    {
+                                        mapAITileToBoard(outer_storage[i], new_loc);                                    
+                                    }
+                                    catch (Exception e)
+                                    {
+                                    }
+                                    new_loc = new_loc - 15;
+                                }
+                                new_loc = t.id;
+                                for (int i = marker; i < item.Count; i++)
+                                {
+                                    try
+                                    {
+                                        mapAITileToBoard(outer_storage[i], new_loc);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                    }
+                                    new_loc = new_loc + 15;
+                                }
+                            }
+                            else if (t.right.accepted_placement == false && t.left.accepted_placement == false)
+                            {
+                                int new_loc = t.id;
+                                for (int i = marker; i >= 0; i--)
+                                {
+                                    try
+                                    {
+                                        mapAITileToBoard(outer_storage[i], new_loc);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                    }
+                                    new_loc = new_loc - 1;
+                                }
+
+                                new_loc = t.id;
+                                for (int i = marker; i < item.Count; i++)
+                                {
+                                    try
+                                    {
+                                        mapAITileToBoard(outer_storage[i], new_loc);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                    }
+                                    new_loc = new_loc + 1;
+                                }
+                            }
+                        }
+                        marker++;
+                    }
+                    this.AIPlayedWords.Items.Add(output_word + " - " + game_logic.score);
+                }
+                n++;
+            }
+
+            foreach(BoardTile t in GameBoard.Children)
+            {
+                if (t.accepted_placement == false)
+                {
+                    
+                }
+                else
+                {
+                    t.placement_possible = true;
+                }
+            }
+
+            int l = 0;
+
+            game_logic.clearBuffer();
+        }
+
+        private void mapAITileToBoard(BoardTile t, int loc)
+        {
+            try
+            {
+                BoardTile placer = drawTile(t.tag);
+                placer.id = loc;
+                placer.Content = t.Content;
+                foreach(BoardTile inner_set in GameBoard.Children)
+                {
+                    if (inner_set.id == loc)
+                    {
+                        inner_set.tag = placer.tag;
+                        inner_set.Content = inner_set.tag.letter_alpha;
+                        inner_set.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative))};
+                        inner_set.FontWeight = FontWeights.UltraBold;
+                        inner_set.accepted_placement = true;
+                        inner_set.placement_possible = false;
+                    }
+                }                       
+            }
+            catch (Exception e)
+            {
+            }
         }
 
         private void clickRequestNewTray(object sender, RoutedEventArgs e)

@@ -135,5 +135,24 @@ namespace Scrabble
             da.Fill(dt);
             return dt;
         }
+        public Dictionary<String, int> getScoreIndex()
+        {
+            DataTable dt = new DataTable();
+            Dictionary<string, int> return_set = new Dictionary<string, int>();
+
+            String query = "SELECT * FROM LETTER";
+
+            SqlCeCommand comm = new SqlCeCommand(query, conn);
+            comm.ExecuteNonQuery();
+            SqlCeDataAdapter da = new SqlCeDataAdapter(comm);
+            da.Fill(dt);
+
+            foreach (DataRow r in dt.Rows)
+            {
+                return_set.Add(r[2].ToString(), Convert.ToInt32(r[3]));
+            }
+
+            return return_set;
+        }
     }
 }
