@@ -22,17 +22,30 @@
         </StackPanel>
         <Button Content="Reset Tray" Canvas.Left="822" Canvas.Top="156" Width="140" Click="clickResetTray" Height="50" Background="#FF1D1414" Foreground="#FF0CAEDE"/>
         <WrapPanel x:Name="GameBoard" Height="600" Canvas.Left="10" Canvas.Top="10" Width="600"/>
-        <ListBox x:Name="PlayedWords" Height="237" Canvas.Left="671" Canvas.Top="330" Width="218" Background="#FF251E1E" FontSize="20" Foreground="#FF2CADC1"/>
-        <ListBox x:Name ="AIPlayedWords" Height="237" Canvas.Left="911" Canvas.Top="330" Width="218" Background="#FF251E1E" FontSize="20" Foreground="#FF2CADC1"/>
+        <ListBox x:Name="PlayedWords" Height="206" Canvas.Left="671" Canvas.Top="330" Width="218" Background="#FF251E1E" FontSize="20" Foreground="#FF2CADC1"/>
+        <ListBox x:Name ="AIPlayedWords" Height="206" Canvas.Left="911" Canvas.Top="330" Width="218" Background="#FF251E1E" FontSize="20" Foreground="#FF2CADC1"/>
         <Label x:Name="ScoreLabel" Content="Score" Canvas.Left="911" Canvas.Top="223" Foreground="#FF2CADC1" FontSize="30" Height="65" Width="146" BorderBrush="#FFFDFDFD" OpacityMask="#FF08515D"/>
         <Label x:Name="SelectedSequence" Content="" Canvas.Left="889" Canvas.Top="8" Width="168" FontSize="20" Foreground="#FF2CADC1" BorderThickness="0">
             <Label.Effect>
                 <DropShadowEffect BlurRadius="3"/>
             </Label.Effect>
         </Label>
-        <TextBlock x:Name="AIStatusReadout" Canvas.Left="671" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="572" Height="84" Width="486" Foreground="#FF2CADC1"/>
         <Button Content="Request New Tray" Canvas.Left="967" Canvas.Top="156" Width="140" Click="clickRequestNewTray" Height="50" Background="#FF1D1414" Foreground="#FF0CAEDE"/>
         <Label Content="A.I Score:" Canvas.Left="671" Canvas.Top="265" Foreground="#FF2CADC1" FontSize="30" Height="65" Width="218"/>
         <Label x:Name="AIScore1" Content="Score" Canvas.Left="911" Canvas.Top="265" Foreground="#FF2CADC1" FontSize="30" Height="65" Width="146"/>
+        <StackPanel x:Name="AITray" Height="84" Canvas.Left="671" Canvas.Top="573" Width="531" Orientation="Horizontal" MouseDown="returnCharactersToTray">
+            <StackPanel.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF251E1E" Offset="0.992"/>
+                    <GradientStop Color="#FF251E1E"/>
+                    <GradientStop Color="#FF3A2D2D" Offset="0.23"/>
+                </RadialGradientBrush>
+            </StackPanel.Background>
+        </StackPanel>
+        <Label x:Name="AISelectionQueue" Content="AI Character Tray" Canvas.Left="671" Canvas.Top="536" Width="168" FontSize="20" Foreground="#FF2CADC1" BorderThickness="0">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="3"/>
+            </Label.Effect>
+        </Label>
     </Canvas>
 </Window>

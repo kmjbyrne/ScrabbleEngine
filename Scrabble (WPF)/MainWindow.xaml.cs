@@ -358,7 +358,7 @@ namespace Scrabble
                 if (e.ChangedButton == MouseButton.Right)
                 {
                     PlayerTray.Children.Add(selectionQueue.Dequeue());
-                    SelectedSequence[(SelectedSequence.ToString().Length) - 1] = "";
+                    //SelectedSequence[(SelectedSequence.ToString().Length) - 1] = "";
                 }
             }
             catch (Exception)
@@ -491,7 +491,7 @@ namespace Scrabble
                         {
                             BoardTile let = selectionQueue.Dequeue();
                            
-                            Sequence.Content = SelectedSequence.Content.ToString().Substring(0, SelectedSequence.Content.ToString().Length - 2);
+                            SelectedSequence.Content = SelectedSequence.Content.ToString().Substring(0, SelectedSequence.Content.ToString().Length - 2);
                             let.id = b.id;
                             this.game_logic.addToSequence(let);
                             b.Content = let.tag.letter_alpha;
@@ -570,7 +570,6 @@ namespace Scrabble
                 drawTray();
                 this.game_logic.clearBuffer();
                 this.ScoreLabel.Content = this.stats.total_score_player;
-                this.beginAISequence();
                 clearPlacementSelectionBorder();
                 AIPerformTurn();
             }
@@ -659,26 +658,22 @@ namespace Scrabble
 
         private void beginAISequence()
         {
-            AIStatusReadout.Text = "Current AI Word Distribution: \r\n";
-            AI.fillGameTree(game_logic.getAllWords());
-        }
-
-        private void AIPerformTurn()
-        {
-            
             game_logic.clearBuffer();
             int counter = AI.current_list.Count;
             AI.current_list.Clear();
-            
+            AI.fillGameTree(game_logic.getAllWords());
             for (int i = 0; i < 8 - counter; i++)
             {
                 BoardTile fresh_tile = new BoardTile();
                 fresh_tile.tag = tile_sack.getRandomLetter();
-                AI.current_list.Add(fresh_tile);
-                AIStatusReadout.Text += fresh_tile.tag.ToString() + "  ";
+                AI.current_list.Add(drawTile(fresh_tile.tag));
+                AITray.Children.Add(drawTile(fresh_tile.tag));
+                //AIStatusReadout.Text += fresh_tile.tag.ToString() + "  ";
             }
+        }
 
-
+        private void AIPerformTurn()
+        {      
             List<BoardTile> joint_structure = new List<BoardTile>();
 
             List<BoardTile> candidate_entry_points = new List<BoardTile>();
