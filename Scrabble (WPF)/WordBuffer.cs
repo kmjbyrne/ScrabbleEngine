@@ -147,7 +147,7 @@ namespace Scrabble
             this.grid_coordinates.Clear();
         }
 
-        public List<BoardTile> getTilesFromString(String s, BoardTile root, int loc, List<BoardTile> score_index)
+        public List<BoardTile> getTilesFromString(String s, BoardTile root, int loc, List<BoardTile> score_index, int tray_location)
         {
             int counter=0;
             List<BoardTile> return_set = new List<BoardTile>();
@@ -164,7 +164,7 @@ namespace Scrabble
                         BoardTile temp = new BoardTile();
                         temp.Content = c.ToString();
                         temp.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
-
+                        temp.tray_location = tray_location;
                         temp.FontWeight = FontWeights.UltraBold;
                         temp.tag = this.getScoreKey(c.ToString());
                         return_set.Add(temp);

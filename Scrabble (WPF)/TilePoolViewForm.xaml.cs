@@ -31,9 +31,10 @@ namespace Scrabble
             foreach (Letter l in pool.letters)
             {
                 if (!(tiles.ContainsKey(l.letter_alpha)))
-                    tiles.Add(l.letter_alpha, 1);
+                    tiles.Add(l.letter_alpha, l.distribution_count);
                 else if (tiles.ContainsKey(l.letter_alpha))
-                    tiles[l.letter_alpha]++;
+                { //  //
+                }
             }
 
             foreach (KeyValuePair<String, int> kvp in tiles)

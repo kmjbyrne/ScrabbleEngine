@@ -709,7 +709,7 @@ namespace Scrabble
         private void beginAISequence()
         {
             game_logic.clearBuffer();
-            int counter = AI.current_list.Count;
+            int counter = AITray.Children.Count;
             AI.current_list.Clear();
             fillGameTree();
 
@@ -717,6 +717,7 @@ namespace Scrabble
             {
                 BoardTile fresh_tile = new BoardTile();
                 fresh_tile.tag = tile_sack.getRandomLetter();
+                fresh_tile.tray_location = i;
                 AI.current_list.Add(drawTile(fresh_tile.tag));
                 AITray.Children.Add(drawTile(fresh_tile.tag));
                 //AIStatusReadout.Text += fresh_tile.tag.ToString() + "  ";
@@ -748,7 +749,12 @@ namespace Scrabble
             List<BoardTile> candidate_entry_points = new List<BoardTile>();
             foreach (BoardTile bt in GameBoard.Children)
             {
-                if (bt.accepted_placement == true)
+                if (bt.accepted_placement == true && bt.up.accepted_placement == false && bt.down.accepted_placement == false)
+                {
+                    candidate_entry_points.Add(bt);
+                    AI.current_list.Add(bt);
+                }
+                else if (bt.accepted_placement == true && bt.left.accepted_placement == false && bt.right.accepted_placement == false)
                 {
                     candidate_entry_points.Add(bt);
                     AI.current_list.Add(bt);
@@ -774,7 +780,7 @@ namespace Scrabble
                     {
                         root = s.IndexOf(bt.tag.letter_alpha);
                         //Mark buffer as possible word placement
-                        game_logic.selection = game_logic.getTilesFromString(s, bt, root-1, candidate_entry_points);
+                        game_logic.selection = game_logic.getTilesFromString(s, bt, root - 1, candidate_entry_points, bt.tray_location);
                         game_logic.calculateScore();
                         game_logic.root_location = root;
                         KeyValuePair<int, int> fill = new KeyValuePair<int, int>(index, game_logic.score);
@@ -829,6 +835,11 @@ namespace Scrabble
                     //Attempt to play word selection
                     foreach (BoardTile t in item)
                     {
+                        if(t.accepted_placement == false)
+                        {
+                            AITray.Children.RemoveAt(t.tray_location);
+                        }
+                        
                         output_word += t.tag.letter_alpha;
                         List<BoardTile> outer_storage = new List<BoardTile>();
                         outer_storage.AddRange(item);
@@ -890,6 +901,9 @@ namespace Scrabble
                                 }
                             }
                         }
+
+                        if (t.accepted_placement == false)
+                            AITray.Children.Remove(t);
                         marker++;
                     }
                     this.AIPlayedWords.Items.Add(output_word + " - " + game_logic.score);
@@ -912,6 +926,7 @@ namespace Scrabble
             this.AIScore.Content = this.cpu_tracker.score;
 
             game_logic.clearBuffer();
+            beginAISequence();
         }
 
         private void mapAITileToBoard(BoardTile t, int loc)

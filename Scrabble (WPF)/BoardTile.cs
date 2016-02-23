@@ -15,6 +15,7 @@ namespace Scrabble
         public bool occupied { get; set; }
         public int id { get; set; }
         public Letter tag { get; set; }
+        public int tray_location { get; set; }
 
         public BoardTile left { get; set; }
         public BoardTile right { get; set; }
