@@ -59,12 +59,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AIEngine.cs" />
+    <Compile Include="AIStatusForm.xaml.cs">
+      <DependentUpon>AIStatusForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BoardTile.cs" />
+    <Compile Include="GameKeeper.cs" />
     <Compile Include="GameStatistics.cs" />
+    <Compile Include="GameType.cs" />
     <Compile Include="IPrefixMatcher.cs" />
     <Compile Include="Letter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PlayMode.xaml.cs">
+      <DependentUpon>PlayMode.xaml</DependentUpon>
     </Compile>
     <Compile Include="PrefixMatcher.cs" />
     <Compile Include="SignUp.xaml.cs">
@@ -72,12 +80,20 @@
     </Compile>
     <Compile Include="SQLConnection.cs" />
     <Compile Include="GameTile.cs" />
+    <Compile Include="StaticUpdates.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TilePool.cs" />
+    <Compile Include="TilePoolViewForm.xaml.cs">
+      <DependentUpon>TilePoolViewForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tray.cs" />
     <Compile Include="Trie.cs" />
     <Compile Include="TrieNode.cs" />
     <Compile Include="WordBuffer.cs" />
+    <Page Include="AIStatusForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,7 +110,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PlayMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SignUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TilePoolViewForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\App.xaml
-3-1161539794
+6533722188
 
-25-1440619316
+31995725438
 131051617327
-Login.xaml;MainWindow.xaml;SignUp.xaml;
+AIStatusForm.xaml;Login.xaml;MainWindow.xaml;PlayMode.xaml;SignUp.xaml;TilePoolViewForm.xaml;
 
 False
 

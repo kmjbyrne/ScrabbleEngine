@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace Scrabble
 {
-    class BoardTile : Button
+    public class BoardTile : Button
     {
         public bool accepted_placement { get; set; }
         public KeyValuePair<char, int>bonus_multiplier { get; set; }

@@ -32,3 +32,9 @@ G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\De
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Login.g.cs
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\SignUp.g.cs
 G:\College\Year 4\Computer Science\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\Scrabble.Properties.Resources.resources
+C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\AIStatusForm.baml
+C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\AIStatusForm.g.cs
+C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\PlayMode.baml
+C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\PlayMode.g.cs
+C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\TilePoolViewForm.baml
+C:\Scrabble\ScrabbleEngine\Scrabble (WPF)\obj\Debug\TilePoolViewForm.g.cs

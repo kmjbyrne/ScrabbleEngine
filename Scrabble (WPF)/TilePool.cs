@@ -7,10 +7,10 @@ using System.Data;
 
 namespace Scrabble
 {
-    class TilePool
+    public class TilePool
     {
         private int remaining_tiles { get; set; }
-        private List<Letter> letters;
+        public List<Letter> letters;
         
         public TilePool()
         {

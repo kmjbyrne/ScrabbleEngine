@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Scrabble
 {
-    class Letter
+    public class Letter
     {
         public int distribution_count { get; set; }
         public String letter_alpha { get; set; }

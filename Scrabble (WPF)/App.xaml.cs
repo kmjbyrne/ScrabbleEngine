@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Scrabble__WPF_
+namespace Scrabble
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -11,10 +11,12 @@ namespace Scrabble
         public List<BoardTile> current_list { get; set; }
         public List<String> possible_words {get;set;}
         public Trie<String> game_tree = new Trie<String>();
+        public int score_margin { get; set; }
 
         public AIEngine()
         {
             this.current_list = new List<BoardTile>();
+            this.score_margin = 0;
         }
 
         public void fillGameTree(List<String> words)
