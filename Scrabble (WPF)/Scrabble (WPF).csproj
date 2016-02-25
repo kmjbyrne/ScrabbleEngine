@@ -63,6 +63,7 @@
       <DependentUpon>AIStatusForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="BoardTile.cs" />
+    <Compile Include="ComparableSelection.cs" />
     <Compile Include="GameKeeper.cs" />
     <Compile Include="GameStatistics.cs" />
     <Compile Include="GameType.cs" />

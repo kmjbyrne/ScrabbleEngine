@@ -147,6 +147,41 @@ namespace Scrabble
             this.grid_coordinates.Clear();
         }
 
+
+        public List<BoardTile> mapTiles(String s, BoardTile tile)
+        {
+            List<BoardTile> return_set = new List<BoardTile>();
+            int counter = 0;
+            int loc = s.IndexOf(tile.tag.letter_alpha);
+
+            foreach(char c in s)
+            {
+                if (c == null || c == '\0')
+                {
+
+                }
+                else
+                {
+                    if (loc == counter)
+                    {
+                        return_set.Add(tile);
+                    }
+                    else
+                    {
+                        BoardTile temp = new BoardTile();
+                        temp.Content = c.ToString();
+                        temp.Background = new ImageBrush { ImageSource = new BitmapImage(new Uri("tile.jpg", UriKind.Relative)) };
+                        temp.tray_location = -1;
+                        temp.FontWeight = FontWeights.UltraBold;
+                        temp.tag = this.getScoreKey(c.ToString());
+                        return_set.Add(temp);
+                    }
+                }
+                counter++;
+            }
+
+            return return_set;
+        }
         public List<BoardTile> getTilesFromString(String s, BoardTile root, int loc, List<BoardTile> score_index, int tray_location)
         {
             int counter=0;
@@ -195,6 +230,16 @@ namespace Scrabble
             //Iterate through global selection list
             //To identify the score value for the character
             return new Letter(0, input.ToString(), 5);
+        }
+
+        public override string ToString()
+        {
+            String s = "";
+            foreach(BoardTile bt in selection)
+            {
+                s += bt.tag.letter_alpha;
+            }
+            return s;
         }
     }
 }

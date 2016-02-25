@@ -39,13 +39,13 @@ namespace Scrabble
 
         private void clickIntermediate(object sender, RoutedEventArgs e)
         {
-            this.type = new GameType("Indermediate", 8);
+            this.type = new GameType("Indermediate", 10);
             goGame();
         }
 
         private void clickExpert(object sender, RoutedEventArgs e)
         {
-            this.type = new GameType("Expert", -1);
+            this.type = new GameType("Expert", 999);
             goGame();
         }
 
