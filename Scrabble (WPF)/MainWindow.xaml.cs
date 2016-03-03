@@ -991,6 +991,9 @@ namespace Scrabble
             List<BoardTile> joint_structure = new List<BoardTile>();
 
             List<BoardTile> candidate_entry_points = new List<BoardTile>();
+
+            long begin = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+
             foreach (BoardTile bt in GameBoard.Children)
             {
                 try
@@ -1011,6 +1014,9 @@ namespace Scrabble
 
                 }
             }
+
+            long end = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            long time = end - begin;
 
             List<int> placed_char_index = new List<int>();
             List<String> ai_placement_buffer = new List<String>();
@@ -1034,9 +1040,12 @@ namespace Scrabble
                 measure = game_type.formula;
             }
 
+            begin = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int marker = 0;
             foreach(BoardTile bt in candidate_entry_points)
             {
+                
+
                 AI.current_list.Clear();
                 foreach (BoardTile tray in AITray.Children)
                 {
@@ -1089,13 +1098,21 @@ namespace Scrabble
                     }
                 }
                 marker++;
+                
+
+                int y = 0;
             }
+
+            end = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            end = end - begin;
 
             int loc = 0;
             int tracker = 0;
             int max = 0;
             //Then get the largest of each root largest
             List<ComparableSelection> seq = new List<ComparableSelection>();
+
+            begin = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
 
             foreach(ComparableSelection cs in list.Where(o => o.score != 0))
             {
@@ -1107,6 +1124,8 @@ namespace Scrabble
                 loc++;
             }
 
+            end = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            end = end - begin;
 
             this.cpu_tracker.updateScore(list[tracker].score);
 
@@ -1121,6 +1140,7 @@ namespace Scrabble
             }
             else
             {
+                begin = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
                 foreach (ComparableSelection item in new_items)
                 {
                     //int marker = 0;
@@ -1209,6 +1229,8 @@ namespace Scrabble
                         marker++;
                     }
                     this.AIPlayedWords.Items.Add(new_items[0].ToString());
+                    end = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                    end = end - begin;
                 }
 
                 foreach (BoardTile t in GameBoard.Children)
